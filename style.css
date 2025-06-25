@@ -1,0 +1,137 @@
+/* Basic Reset & Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+/* Main Content Sections */
+main {
+    padding: 20px;
+    max-width: 960px;
+    margin: 30px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+section {
+    padding: 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+section:last-child {
+    border-bottom: none; /* No border for the last section */
+}
+
+/* Hero Section Styles */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #dce7c3; /* A light green background */
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.hero h2 {
+    font-size: 2em;
+    color: #28a745; /* Green color for the heading */
+}
+
+.hero p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 15px auto 25px;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    background-color: #28a745; /* Green button */
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Features Section Styles */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.feature-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    flex: 1; /* Allows items to grow and shrink */
+    min-width: 280px; /* Minimum width for stacking on smaller screens */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.feature-item h3 {
+    color: #007bff; /* Blue for feature headings */
+    margin-top: 0;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: #fff;
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #28a745;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+    .feature-item {
+        width: 90%;
+        max-width: 400px; /* Limit width even in column layout */
+    }
+}

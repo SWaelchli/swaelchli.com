@@ -6,6 +6,14 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    /* --- START: LBM Simulation Specific Styles --- */
+    /* Adjust body to accommodate the full-page simulation container */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack header, content, simulation, footer */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    /* Remove default body background-color if it conflicts with simulation background */
+    background-color: #333; /* Dark background for the whole page */
+    /* --- END: LBM Simulation Specific Styles --- */
 }
 
 /* Header Styles */
@@ -33,6 +41,11 @@ main {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    /* --- START: LBM Simulation Specific Styles --- */
+    /* Allows other content to push simulation down, if simulation is placed after main */
+    /* If the simulation is integrated *within* main, adjust its container */
+    /* No direct changes needed here, assuming simulation is in its own section or wrapper */
+    /* --- END: LBM Simulation Specific Styles --- */
 }
 
 section {
@@ -113,6 +126,9 @@ footer {
     color: #fff;
     font-size: 0.9em;
     margin-top: 20px;
+    /* --- START: LBM Simulation Specific Styles --- */
+    margin-top: auto; /* Pushes footer to the bottom when using flexbox on body */
+    /* --- END: LBM Simulation Specific Styles --- */
 }
 
 footer a {
@@ -135,3 +151,87 @@ footer a:hover {
         max-width: 400px; /* Limit width even in column layout */
     }
 }
+
+
+/* --- START: Water Simulation Specific Styles --- */
+
+/* Styles for the simulation canvas */
+#waterCanvas {
+    display: block; /* Ensures canvas behaves as a block element, removing extra space */
+    margin: 20px auto; /* Centers the canvas horizontally and adds vertical spacing */
+    border: 2px solid #555; /* Adds a subtle border around the simulation area */
+    background-color: #f0f0f0; /* Light background for empty cells/areas */
+    cursor: default; /* Sets default cursor for interaction */
+    border-radius: 5px; /* Slightly rounded corners for aesthetics */
+}
+
+/* Container for tool control buttons */
+.tool-controls {
+    text-align: center; /* Centers the buttons within the container */
+    margin: 20px 0; /* Vertical margin for spacing */
+    padding: 10px; /* Internal padding */
+    background-color: #eee; /* Light gray background for the controls bar */
+    border-radius: 8px; /* Rounded corners for the container */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for depth */
+}
+
+/* Styling for individual tool buttons */
+.tool-button {
+    background-color: #007bff; /* Primary blue color for buttons */
+    color: white; /* White text color */
+    padding: 12px 20px; /* Sufficient padding for clickability */
+    margin: 8px; /* Space between buttons */
+    border: none; /* No default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1.05em; /* Slightly larger font size */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
+}
+
+/* Hover effect for buttons */
+.tool-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Active (selected) tool button styling */
+.tool-button.active {
+    background-color: #28a745; /* Green when active, indicating selection */
+    border: 2px solid #1e7e34; /* Darker green border */
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.3); /* Inset shadow to make it look pressed */
+    transform: translateY(0); /* Reset lift for active state */
+}
+
+/* Adjust main content flex properties to accommodate centered canvas and controls */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers items horizontally within the main area */
+    /* Remove default max-width and margin from previous main styles if they conflict */
+    max-width: none; /* Allow main to expand */
+    margin: 0; /* Remove auto margins so align-items can center it */
+    width: 100%; /* Ensure main takes full width */
+}
+
+/* Specific styling for the simulation section */
+#simulation-section {
+    width: 100%; /* Ensure section takes full width for centering content */
+    text-align: center; /* Center section text */
+    padding-top: 20px;
+}
+
+#simulation-section h2 {
+    color: #007bff; /* Blue heading for simulation section */
+    margin-bottom: 10px;
+}
+
+#simulation-section p {
+    max-width: 700px; /* Limit paragraph width for readability */
+    margin: 0 auto 20px auto; /* Center paragraph and add spacing */
+    line-height: 1.5;
+    color: #555;
+}
+
+/* --- END: Water Simulation Specific Styles --- */

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 614 Overhead Oil Tank Simulation</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header>
+        <h1>API 614 Overhead Oil Tank Simulation</h1>
+        <p>Visually simulating an API 614 compliant rundown oil tank system.</p>
+        <a href="../" class="button">Engineering Tools</a>
+        <a href="../../" class="button">Home</a>
+    </header>
+
+    <div class="container">
+        <div class="controls-panel">
+            <h2>Simulation Controls</h2>
+
+            <div class="control-group">
+                <h3>Tank Dimensions</h3>
+                <label for="tankHeight">Height (<span id="tankHeightUnit">m</span>):</label>
+                <input type="range" id="tankHeight" min="1" max="10" value="5" step="0.1">
+                <span id="displayTankHeight">5.0</span>
+                <br>
+                <label for="tankDiameter">Diameter (<span id="tankDiameterUnit">m</span>):</label>
+                <input type="range" id="tankDiameter" min="0.5" max="5" value="2" step="0.1">
+                <span id="displayTankDiameter">2.0</span>
+            </div>
+
+            <div class="control-group">
+                <h3>Flow Rates</h3>
+                <label for="inletFlowRate">Inlet Flow Rate (<span id="inletFlowRateUnit">L/min</span>):</label>
+                <input type="range" id="inletFlowRate" min="0" max="1000" value="300" step="10">
+                <span id="displayInletFlowRate">300</span>
+                <br>
+                <label for="outletFlowRateSetting">Outlet Demand (<span id="outletFlowRateSettingUnit">L/min</span>):</label>
+                <input type="range" id="outletFlowRateSetting" min="0" max="1000" value="250" step="10">
+                <span id="displayOutletFlowRateSetting">250</span>
+            </div>
+
+            <div class="control-group">
+                <h3>Oil Properties</h3>
+                <label for="oilDensity">Density (<span id="oilDensityUnit">kg/m³</span>):</label>
+                <input type="range" id="oilDensity" min="700" max="1000" value="850" step="1">
+                <span id="displayOilDensity">850</span>
+                <br>
+                <label for="oilViscosity">Viscosity (<span id="oilViscosityUnit">cSt</span>):</label>
+                <input type="range" id="oilViscosity" min="1" max="500" value="50" step="1">
+                <span id="displayOilViscosity">50</span>
+            </div>
+
+            <div class="control-group">
+                <h3>Supply Line</h3>
+                <label for="orificeDiameter">Orifice Diameter (<span id="orificeDiameterUnit">mm</span>):</label>
+                <input type="range" id="orificeDiameter" min="5" max="100" value="20" step="1">
+                <span id="displayOrificeDiameter">20</span>
+            </div>
+
+            <div class="control-group">
+                <h3>Simulation Control</h3>
+                <button id="startStopButton">Start Simulation</button>
+                <button id="resetButton">Reset Simulation</button>
+                <br>
+                <label for="simulationSpeed">Speed:</label>
+                <input type="range" id="simulationSpeed" min="0.1" max="5" value="1" step="0.1">
+                <span id="displaySimulationSpeed">1.0x</span>
+            </div>
+        </div>
+
+        <div class="simulation-area">
+            <canvas id="tankCanvas" width="600" height="700"></canvas>
+            <div class="metrics-display">
+                <h2>Current Metrics</h2>
+                <p>Oil Level: <span id="displayOilLevelHeight">0.00</span> <span id="oilLevelHeightUnit">m</span> (<span id="displayOilLevelPercent">0.00</span>%)</p>
+                <p>Oil Inlet Flow: <span id="displayActualInletFlowRate">0.00</span> <span id="actualInletFlowRateUnit">L/min</span></p>
+                <p>Oil Outlet Flow: <span id="displayActualOutletFlowRate">0.00</span> <span id="actualOutletFlowRateUnit">L/min</span></p>
+                <p>Oil Overflow Rate: <span id="displayOverflowRate">0.00</span> <span id="overflowRateUnit">L/min</span></p>
+                <p>Oil Header Pressure: <span id="displayHeaderPressure">0.00</span> <span id="headerPressureUnit">kPa</span></p>
+                <p>Tank Volume: <span id="displayTankVolume">0.00</span> <span id="tankVolumeUnit">L</span></p>
+                <p>Total Capacity: <span id="displayTotalCapacity">0.00</span> <span id="totalCapacityUnit">L</span></p>
+
+                <h3>Alarms (API 614)</h3>
+                <p class="alarm" id="highLevelAlarm">HIGH LEVEL ALARM</p>
+                <p class="alarm" id="lowLevelAlarm">LOW LEVEL ALARM</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Overhead Oil Tank Simulation</p>
+    </footer>
+
+    <script src="overhead-tank.js"></script>
+</body>
+</html>

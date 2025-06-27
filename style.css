@@ -173,20 +173,6 @@ header p {
     max-width: 400px;
 }
 
-.simulation-area {
-    flex: 2;
-    min-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-h1, h2, h3 {
-    color: #0056b3;
-    margin-top: 0;
-}
-
 .control-group {
     margin-bottom: 20px;
     padding-bottom: 15px;
@@ -197,6 +183,15 @@ h1, h2, h3 {
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+.simulation-area {
+    flex: 2;
+    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 label {
@@ -210,30 +205,6 @@ input[type="range"] {
     margin-bottom: 10px;
 }
 
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-button#resetButton {
-    background-color: #dc3545;
-}
-
-button#resetButton:hover {
-    background-color: #c82333;
-}
-
 canvas {
     border: 1px solid #ccc;
     background-color: #e0f2f7; /* Light blue background for tank area */
@@ -242,31 +213,15 @@ canvas {
     height: auto;
 }
 
-.metrics-display {
-    width: 100%;
+.process-data-panel {
+    min-width: 300px;
+    max-width: 400px;
     text-align: center;
     background-color: #e9ecef;
     padding: 15px;
     border-radius: 5px;
 }
 
-.metrics-display p {
-    margin: 5px 0;
-    font-size: 1.1em;
-}
-
-.alarm {
-    color: red;
-    font-weight: bold;
-    display: none; /* Hidden by default, shown by JS */
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
 
 footer {
     text-align: center;

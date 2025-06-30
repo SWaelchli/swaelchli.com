@@ -1,0 +1,94 @@
+/* Overhead Tank */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.controls-panel, .simulation-area {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.controls-panel {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.control-group {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.control-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.simulation-area {
+    flex: 2;
+    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+canvas {
+    border: 1px solid #ccc;
+    background-color: #e0f2f7; /* Light blue background for tank area */
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.process-data-panel {
+    min-width: 300px;
+    max-width: 400px;
+    text-align: center;
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #0056b3;
+    color: white;
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls-panel, .simulation-area {
+        min-width: unset;
+        width: 95%;
+    }
+}

@@ -15,16 +15,11 @@ body {
 /* Main Content Sections */
 main {
     padding: 20px;
-    max-width: 960px;
+    max-width: 1240px;
     margin: 30px auto;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    /* --- START: LBM Simulation Specific Styles --- */
-    /* Allows other content to push simulation down, if simulation is placed after main */
-    /* If the simulation is integrated *within* main, adjust its container */
-    /* No direct changes needed here, assuming simulation is in its own section or wrapper */
-    /* --- END: LBM Simulation Specific Styles --- */
 }
 
 section {
@@ -37,41 +32,6 @@ section:last-child {
     border-bottom: none; /* No border for the last section */
 }
 
-/* Hero Section Styles */
-.hero {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: #dce7c3; /* A light green background */
-    border-radius: 5px;
-    margin-bottom: 30px;
-}
-
-.hero h2 {
-    font-size: 2em;
-    color: #28a745; /* Green color for the heading */
-}
-
-.hero p {
-    font-size: 1.1em;
-    max-width: 700px;
-    margin: 15px auto 25px;
-}
-
-/* Button Styles */
-.button {
-    display: inline-block;
-    background-color: #28a745; /* Green button */
-    color: #fff;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: #218838; /* Darker green on hover */
-}
 
 /* Features Section Styles */
 .features {
@@ -97,14 +57,55 @@ section:last-child {
     margin-top: 0;
 }
 
+/* Button Styles */
+.button {
+    display: inline-block;
+    background-color: #28a745; /* Green button */
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+/* Header Styles */
+header {
+    background-color: #162f4b;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.2em;
+    color: white;
+}
+
+
 /* Footer Styles */
 footer {
     text-align: center;
     padding: 20px 0;
-    background-color: #333;
+    background-color: #162f4b;
     color: #fff;
     font-size: 0.9em;
     margin-top: 20px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
 }
 
 footer a {
@@ -129,117 +130,5 @@ footer a:hover {
 }
 
 
-/* Header Styles */
-header {
-    background-color: #162f4b;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-header h1 {
-    margin: 0;
-    color: white;
-    font-size: 2.5em;
-}
-
-header p {
-    font-size: 1.2em;
-    color: white;
-}
-
-/* Overhead Tank */
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    flex-grow: 1;
-}
-
-.controls-panel, .simulation-area {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.controls-panel {
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-}
-
-.control-group {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.control-group:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.simulation-area {
-    flex: 2;
-    min-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="range"] {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-canvas {
-    border: 1px solid #ccc;
-    background-color: #e0f2f7; /* Light blue background for tank area */
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-
-.process-data-panel {
-    min-width: 300px;
-    max-width: 400px;
-    text-align: center;
-    background-color: #e9ecef;
-    padding: 15px;
-    border-radius: 5px;
-}
 
 
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #0056b3;
-    color: white;
-    margin-top: auto;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .controls-panel, .simulation-area {
-        min-width: unset;
-        width: 95%;
-    }
-}

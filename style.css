@@ -74,6 +74,17 @@ section:last-child {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
 }
 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+
+
 /* Header Styles */
 header {
     background-color: #162f4b;

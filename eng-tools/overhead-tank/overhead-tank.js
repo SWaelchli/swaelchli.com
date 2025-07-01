@@ -24,6 +24,8 @@
     // Tanks Height
     const TankElevationInput = document.getElementById('TankElevation');
 
+ 
+
 
 
 
@@ -54,7 +56,7 @@ let TankVolume = parseFloat(TankVolumeInput.value)
 let TankElevation = parseFloat(TankElevationInput.value)              // m
 
 // calulate initial variables
-let SupplyLineVolume = ((SupplyLineInnerDiameter/100) * (SupplyLineInnerDiameter/100) * Math.PI) / 4;   // Volume of the supply line in l 
+let SupplyLineVolume = (Math.pow((SupplyLineInnerDiameter / 100) * Math.PI, 2) / 4) * TankElevation * 10 ;   // Volume of the supply line in l 
 let SupplyLineOilPercentage = (SupplyLineOilVolume / SupplyLineVolume) * 100; // Percentage of oil in the supply line
 let TankOilPercentage = (TankOilVolume / TankVolume) * 100;  // Percentage of oil in the tank
 let OrificeDownstreamPressure = 0   // Downstream pressure at the orifice in barg
@@ -151,7 +153,7 @@ TankElevationInput.addEventListener('input', function() {
 
 function CalculateFlowRate() {
     // Calculate the flow rate in liter per minutes using the orifice equation
-    let deltaPressure = OilHeaderPressure - (SupplyLineOilPercentage * TankElevation * (OilDensityInput / 1000) * 9.81); // Calculate the pressure difference
+    let deltaPressure = OilHeaderPressure - (SupplyLineOilPercentage * TankElevation * (OilDensity / 1000) * 9.81); // Calculate the pressure difference
     flowRate = DischargeCoefficient * Math.PI * Math.pow(OrificeDiameter / 1000, 2) * Math.sqrt(2 * deltaPressure * 100000 / OilDensity); // Convert diameter to meters and pressure to Pascals
     return flowRate * 1000 * 60; // Convert m3/s to l/min
 }

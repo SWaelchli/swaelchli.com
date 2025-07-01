@@ -1,7 +1,7 @@
 // --- Configuration ---
 const CANVAS_WIDTH = 600; // Will be scaled by CSS, but determines internal resolution mapping
 const CANVAS_HEIGHT = 600;
-const GRID_SIZE = 64; // 128x128 cells
+const GRID_SIZE = 64; // 64x64 cells
 const DIFFUSION_RATE = 0.9; // How quickly density spreads (0 to 1, higher spreads faster)
 const MAX_DENSITY = 50; // Maximum density a cell can hold
 const MIN_DENSITY_DISPLAY = 0.5; // Minimum density to start showing light blue

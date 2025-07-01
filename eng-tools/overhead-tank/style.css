@@ -65,14 +65,6 @@ canvas {
 }
 
 
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #0056b3;
-    color: white;
-    margin-top: auto;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .container {

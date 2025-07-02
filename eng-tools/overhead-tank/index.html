@@ -23,8 +23,8 @@
 
             <div class="control-group">
                 <h3>Fixed Properties</h3>
-                <label for="OilDensity"> Oil Density (kg/m3):</label>
-                <input type="number" id="OilDensity" min="0" value="860" step="1">
+                <label for="OilDensityKGM3"> Oil Density (kg/m3):</label>
+                <input type="number" id="OilDensityKGM3" min="0" value="860" step="1">
                 
                 <label for="OilViscosity"> Kinematic Oil Viscosity (mm2/s):</label>
                 <input type="number" id="OilViscosity" min="0" value="32" step="1">
@@ -35,8 +35,8 @@
                 <label for="TankVolume"> Tank Volume (l):</label>
                 <input type="number" id="TankVolume" min="0" value="1000" step="100">
 
-                <label for="TankElevation"> Tank Elevation above ground (m):</label>
-                <input type="number" id="TankElevation" min="0" value="6" step="0.5">
+                <label for="TankElevationM"> Tank Elevation above ground (m):</label>
+                <input type="number" id="TankElevationM" min="0" value="6" step="0.5">
 
 
             </div>
@@ -67,7 +67,7 @@
 
                 <p>Orifice Diameter: <span id="displayOrificeDiameterPro">5.0</span> mm</p>      <!--delete later-->
 
-                <p>Oil Density: <span id="displayOilDensityPro">860</span> kg/m3</p>      <!--delete later-->
+                <p>Oil Density: <span id="displayOilDensityKGM3Pro">860</span> kg/m3</p>      <!--delete later-->
 
                 <p>Kinematic Oil Viscosity: <span id="displayOilViscosityPro">32</span> mm2/s</p>      <!--delete later-->
 
@@ -75,16 +75,16 @@
 
                 <p>Tank Volume: <span id="displayTankVolumePro">1000</span> l</p>      <!--delete later-->
 
-                <p>Tank Elevation: <span id="displayTankElevationPro">6</span> m</p>      <!--delete later-->
+                <p>Tank Elevation: <span id="displayTankElevationMPro">6</span> m</p>      <!--delete later-->
 
 
-                <p>Oil Flow Rate: <span id="displayFlowRatePro">0.0</span> l/min</p>
-
-                <p>Oil Flow Velocity: <span id="displayVelocityPro">0.0</span> m/s</p>
+                <p>Oil Flow Rate: <span id="displayflowRateLMINPro">0.0</span> l/min</p>
 
                 <p>Oil Volume in Supply Line: <span id="displaySupplyLineOilVolumePro">0.0</span> %</p>
 
                 <p>Oil Volume in Tank: <span id="displayTankOilVolumePro">0.0</span> %</p>
+
+                <p>Time Passed: <span id="displaycurrentTimePro">0.0</span> s</p>
 
                 <a id="StartButton" class="button">Start Calculation</a>
                 <a id="StopButton" class="button">Stop Calculation</a>

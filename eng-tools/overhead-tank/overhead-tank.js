@@ -69,14 +69,29 @@ let TankVolume = parseFloat(TankVolumeInput.value)
 let TankElevationM = parseFloat(TankElevationMInput.value)              // m
 
 // calulate initial variables
+
 let SupplyLineVolume = Math.PI * Math.pow((SupplyLineInnerDiameter / 100) / 2, 2) * (TankElevationM * 10);   // TankElevation from m to dm, Volume of the supply line in l 
 let SupplyLineOilPercentage = (SupplyLineOilVolume / SupplyLineVolume) * 100; // Percentage of oil in the supply line
 let TankOilPercentage = (TankOilVolume / TankVolume) * 100;  // Percentage of oil in the tank
-let OrificeDownstreamPressure = 0   // Downstream pressure at the orifice in barg
 let flowRateLMIN = 0; // Flow rate in m3/s
-let deltaPressure = OilHeaderPressure
 
-console.log("SupplyLineVolume:", SupplyLineVolume);
+function CalulateBoundryVarialbles() {
+
+let SupplyLineVolume = Math.PI * Math.pow((SupplyLineInnerDiameter / 100) / 2, 2) * (TankElevationM * 10);   // TankElevation from m to dm, Volume of the supply line in l 
+let SupplyLineOilPercentage = (SupplyLineOilVolume / SupplyLineVolume) * 100; // Percentage of oil in the supply line
+let TankOilPercentage = (TankOilVolume / TankVolume) * 100;  // Percentage of oil in the tank
+let flowRateLMIN = 0; // Flow rate in m3/s
+
+}
+
+
+
+
+
+
+
+
+
 
 // 3. Add an event listener to the sliders
 // The 'input' event fires continuously as the slider is dragged
@@ -100,28 +115,28 @@ OrificeDiameterSlider.addEventListener('input', function() {
    
     OrificeDiameter = parseFloat(this.value);
     displayOrificeDiameter.textContent = OrificeDiameter.toFixed(1); // .toFixed(1) for one decimal place
-    displayOrificeDiameterPro.textContent = OrificeDiameter.toFixed(1); // not currently distplayed in html // .toFixed(1) for one decimal place
+    //displayOrificeDiameterPro.textContent = OrificeDiameter.toFixed(1); // not currently distplayed in html // .toFixed(1) for one decimal place
 
 });
 
 OilDensityKGM3Input.addEventListener('input', function() {
    
     OilDensityKGM3 = parseFloat(this.value);
-    displayOilDensityKGM3Pro.textContent = OilDensityKGM3.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
+    //displayOilDensityKGM3Pro.textContent = OilDensityKGM3.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
 
 });
 
 OilViscosityInput.addEventListener('input', function() {
    
     OilViscosity = parseFloat(this.value);
-    displayOilViscosityPro.textContent = OilViscosity.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
+    //displayOilViscosityPro.textContent = OilViscosity.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
 
 });
 
 SupplyLineInnerDiameterInput.addEventListener('input', function() {
 
     SupplyLineInnerDiameter = parseFloat(this.value);
-    displaySupplyLineInnerDiameterPro.textContent = SupplyLineInnerDiameter.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
+    //displaySupplyLineInnerDiameterPro.textContent = SupplyLineInnerDiameter.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
 
 
 });
@@ -129,14 +144,14 @@ SupplyLineInnerDiameterInput.addEventListener('input', function() {
 TankVolumeInput.addEventListener('input', function() {
    
     TankVolume = parseFloat(this.value);
-    displayTankVolumePro.textContent = TankVolume.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
+    //displayTankVolumePro.textContent = TankVolume.toFixed(0); // not currently distplayed in html // .toFixed(1) for one decimal place
 
 });
 
 TankElevationMInput.addEventListener('input', function() {
    
     TankElevationM = parseFloat(this.value);
-    displayTankElevationMPro.textContent = TankElevationM.toFixed(1); // not currently distplayed in html // .toFixed(1) for one decimal place
+    //displayTankElevationMPro.textContent = TankElevationM.toFixed(1); // not currently distplayed in html // .toFixed(1) for one decimal place
 
 });
 
@@ -193,7 +208,9 @@ function startSimulation() {
     // Set up the interval
     simulationIntervalId = setInterval(runSimulationStep, timeStep * 1000); // timeStep in milliseconds
 
+    CalulateBoundryVarialbles();
     console.log("Simulation started.");
+
 }
 
 function runSimulationStep() {

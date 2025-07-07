@@ -1,45 +1,57 @@
 // overhead-tank.js
+document.addEventListener('DOMContentLoaded', (event) => {
 
 // 1. Get references to the HTML elements
-    // Oil Header Pressure
-    const OilHeaderPressureSlider = document.getElementById('OilHeaderPressure');
-    const displayOilHeaderPressure = document.getElementById('displayOilHeaderPressure');
-    
-    // Oil Header Pressure
-    const OrificeDiameterSlider = document.getElementById('OrificeDiameter');
-    const displayOrificeDiameter = document.getElementById('displayOrificeDiameter');
 
-    // Oil Density
-    const OilDensityKGM3Input = document.getElementById('OilDensityKGM3');
+// Oil Header Pressure
+const OilHeaderPressureSlider = document.getElementById('OilHeaderPressure');
+const displayOilHeaderPressure = document.getElementById('displayOilHeaderPressure');
 
-    // Oil Viscosity
-    const OilViscosityInput = document.getElementById('OilViscosity');
+// Oil Header Pressure
+const OrificeDiameterSlider = document.getElementById('OrificeDiameter');
+const displayOrificeDiameter = document.getElementById('displayOrificeDiameter');
 
-    // Supply Line Inner Diameter
-    const SupplyLineInnerDiameterInput = document.getElementById('SupplyLineInnerDiameter');
+// Oil Density
+const OilDensityKGM3Input = document.getElementById('OilDensityKGM3');
 
-    // Tanks Volume
-    const TankVolumeInput = document.getElementById('TankVolume');
+// Oil Viscosity
+const OilViscosityInput = document.getElementById('OilViscosity');
 
-    // Tanks Height
-    const TankElevationMInput = document.getElementById('TankElevationM');
+// Supply Line Inner Diameter
+const SupplyLineInnerDiameterInput = document.getElementById('SupplyLineInnerDiameter');
 
-    // Supply Line Oil Volume Percentage display
-    const displaySupplyLineOilVolumePro = document.getElementById('displaySupplyLineOilVolumePro');
-    const displayOilHeaderPressurePro = document.getElementById('displayOilHeaderPressurePro');
-    const displayOrificeDiameterPro = document.getElementById('displayOrificeDiameterPro');
-    const displayOilDensityKGM3Pro = document.getElementById('displayOilDensityKGM3Pro');
-    const displayOilViscosityPro = document.getElementById('displayOilViscosityPro');
-    const displaySupplyLineInnerDiameterPro = document.getElementById('displaySupplyLineInnerDiameterPro');
-    const displayTankVolumePro = document.getElementById('displayTankVolumePro');
-    const displayTankElevationMPro = document.getElementById('displayTankElevationMPro');
-    const displayflowRateLMINPro = document.getElementById('displayflowRateLMINPro');
-    const displayTankOilVolumePro = document.getElementById('displayTankOilVolumePro');
-    const displaycurrentTimePro = document.getElementById('displaycurrentTimePro');
+// Tanks Volume
+const TankVolumeInput = document.getElementById('TankVolume');
 
- 
+// Tanks Height
+const TankElevationMInput = document.getElementById('TankElevationM');
+
+// Tanks Height
+const NormOilConsumptionLMINInput = document.getElementById('NormOilConsumptionLMIN');
+
+// Datadisplay elements for process data panel
+const displaySupplyLineOilVolumePro = document.getElementById('displaySupplyLineOilVolumePro');
+const displayOilHeaderPressurePro = document.getElementById('displayOilHeaderPressurePro');
+const displayOrificeDiameterPro = document.getElementById('displayOrificeDiameterPro');
+const displayOilDensityKGM3Pro = document.getElementById('displayOilDensityKGM3Pro');
+const displayOilViscosityPro = document.getElementById('displayOilViscosityPro');
+const displaySupplyLineInnerDiameterPro = document.getElementById('displaySupplyLineInnerDiameterPro');
+const displayTankVolumePro = document.getElementById('displayTankVolumePro');
+const displayTankElevationMPro = document.getElementById('displayTankElevationMPro');
+const displayflowRateLMINPro = document.getElementById('displayflowRateLMINPro');
+const displayActOilConsumptionLMINPro = document.getElementById('displayActOilConsumptionLMINPro');
+const displayTankOilVolumePro = document.getElementById('displayTankOilVolumePro');
+const displaycurrentTimePro = document.getElementById('displaycurrentTimePro');
 
 
+const fixedPropertyInputs = [
+    OilDensityKGM3Input,
+    OilViscosityInput,
+    SupplyLineInnerDiameterInput,
+    TankVolumeInput,
+    TankElevationMInput,
+    NormOilConsumptionLMINInput
+];
 
 
 // 2. Initialize your JavaScript variable
@@ -56,7 +68,26 @@ let simulationIntervalId;
 let totalSimulationDuration = 60 * 60; // Total duration of the simulation in seconds
 
 
-
+//  Chart variables
+let oilLevelChart; // Variable to hold the Chart.js instance
+let chartData = {
+    labels: [], // Stores time values
+    datasets: [{
+        label: 'Tank Oil Volume (%)',
+        data: [],
+        borderColor: 'rgb(236, 40, 40)', // Red
+        backgroundColor: 'rgba(250, 116, 116, 0.2)',
+        tension: 0.1,
+        fill: true
+    }, {
+        label: 'Supply Line Oil Volume (%)',
+        data: [],
+        borderColor: 'rgb(54, 162, 235)', // Blue
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        tension: 0.1,
+        fill: true
+    }]
+};
 
 
 // This variable will hold the current value of the slider ar input
@@ -67,6 +98,7 @@ let OilViscosity = parseFloat(OilViscosityInput.value)              // mm2/s
 let SupplyLineInnerDiameter = parseFloat(SupplyLineInnerDiameterInput.value)   // mm
 let TankVolume = parseFloat(TankVolumeInput.value)          
 let TankElevationM = parseFloat(TankElevationMInput.value)              // m
+let NormOilConsumptionLMIN = parseFloat(NormOilConsumptionLMINInput.value)       // l/min
 
 // calulate initial variables
 
@@ -76,20 +108,64 @@ let TankOilPercentage = 0
 
 
 function CalulateBoundryVarialbles() {
+    // Ensure that values are positive before calculation to prevent NaN or Infinity
+    const safeSupplyLineInnerDiameter = SupplyLineInnerDiameter > 0 ? SupplyLineInnerDiameter : 1; // Use a small positive default if 0 or negative
+    const safeTankElevationM = TankElevationM > 0 ? TankElevationM : 1; // Use a small positive default if 0 or negative
+    const safeTankVolume = TankVolume > 0 ? TankVolume : 1; // Use a small positive default if 0 or negative
 
-    SupplyLineVolume = Math.PI * Math.pow((SupplyLineInnerDiameter / 100) / 2, 2) * (TankElevationM * 10);   // TankElevation from m to dm, Volume of the supply line in l 
+    SupplyLineVolume = Math.PI * Math.pow((safeSupplyLineInnerDiameter / 100) / 2, 2) * (safeTankElevationM * 10);   // TankElevation from m to dm, Volume of the supply line in l 
     SupplyLineOilPercentage = (SupplyLineOilVolume / SupplyLineVolume) * 100; // Percentage of oil in the supply line
-    TankOilPercentage = (TankOilVolume / TankVolume) * 100;  // Percentage of oil in the tank
+    SupplyLineOilPercentage = Math.max(0, Math.min(SupplyLineOilPercentage, 100)); // Ensure percentage is between 0 and 100
+    TankOilPercentage = (TankOilVolume / safeTankVolume) * 100;  // Percentage of oil in the tank
+    TankOilPercentage = Math.max(0, Math.min(TankOilPercentage, 100)); // Ensure percentage is between 0 and 100
 
-    
-
+    MachineFlowCoefficient = (NormOilConsumptionLMIN * 0.06) * Math.sqrt((OilDensityKGM3 / 1000)/ OilHeaderPressure) * 1.156   // Cv Flow Factor
+    console.log("Cv Flow Factor:", MachineFlowCoefficient);
 }
 
 CalulateBoundryVarialbles()
 
 
+// Function to initialize the chart
+function initializeChart() {
+    const ctx = document.getElementById('oilLevelChart').getContext('2d');
+    oilLevelChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Important for custom sizing
+            animation: {
+                duration: 0 // Disable animation for smoother updates
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Time (s)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Volume (%)'
+                    },
+                    min: 0,
+                    max: 100 // Since we are plotting percentages
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Oil Volume Trends'
+                }
+            }
+        }
+    });
+}
 
-
+// Call initializeChart when the script loads
+initializeChart();
 
 
 // 3. Add an event listener to the sliders
@@ -157,11 +233,13 @@ TankElevationMInput.addEventListener('input', function() {
 
 });
 
+NormOilConsumptionLMINInput.addEventListener('input', function() {
+   
+    NormOilConsumptionLMIN = parseFloat(this.value);
+    //displayNormOilConsumptionLMINPro.textContent = NormOilConsumptionLMIN.toFixed(1); // not currently distplayed in html // .toFixed(1) for one decimal place
+    CalulateBoundryVarialbles ();
 
-// 4. Draw the initial state of the system
-
-
-
+});
 
 
 
@@ -171,33 +249,64 @@ TankElevationMInput.addEventListener('input', function() {
 
 
 
-
 function CalculateflowRateLMIN() {
+    // Ensure that values are positive before calculation to prevent NaN or Infinity
+    const safeOilDensityKGM3 = OilDensityKGM3 > 0 ? OilDensityKGM3 : 1; // Use a small positive default if 0 or negative
+    const safeOrificeDiameter = OrificeDiameter > 0 ? OrificeDiameter : 0.001; // Use a small positive default if 0 or negative
+
     // Calculate the flow rate in liter per minutes using the orifice equation
-    let hydrostaticPressureBARG = (((SupplyLineOilPercentage / 100) * TankElevationM * OilDensityKGM3 * 9.81)/100000); // hydrostatic pressure in barg
+    hydrostaticPressureBARG = (((SupplyLineOilPercentage / 100) * TankElevationM * safeOilDensityKGM3 * 9.81)/100000); // hydrostatic pressure in barg
     let RawDeltaPressureBAR = OilHeaderPressure - hydrostaticPressureBARG; //deltaPressure in bar, header pressure - hydrostatic pressure
     // Determine the sign of the flow rate based on rawDeltaPressure
     let flowDirection = Math.sign(RawDeltaPressureBAR);
 
+    if (flowDirection == 1) {
+        // Flow is from tank to supply line (positive flow), the flow goes through the orifice
 
-    let absoluteDeltaPressurePA = Math.abs(RawDeltaPressureBAR) * 100000; // absolute value of delta pressure in in bar
+        let absoluteDeltaPressurePA = Math.abs(RawDeltaPressureBAR) * 100000; // absolute value of delta pressure in in bar
+        
+        // Ensure denominator is not zero or negative for Math.sqrt
+        const safeDenom = (2 * absoluteDeltaPressurePA / safeOilDensityKGM3);
+        let flowRateMagnitudeM3S = 0;
+        if (safeDenom >= 0) {
+            flowRateMagnitudeM3S = DischargeCoefficient * Math.PI * Math.pow(safeOrificeDiameter / 1000, 2) * Math.sqrt(safeDenom);
+        
     
-    flowRateMagnitudeM3S = DischargeCoefficient * Math.PI * Math.pow(OrificeDiameter / 1000, 2) * Math.sqrt(2 * absoluteDeltaPressurePA / OilDensityKGM3); // Convert diameter to meters and pressure to Pascals
-    
-    // Apply the determined sign to the flow rate magnitude and Convert m3/s to l/min
-    flowRateLMIN = flowDirection * flowRateMagnitudeM3S * 1000 * 60;
-    
-    
-    return flowRateLMIN; // Convert m3/s to l/min
+        // Apply the determined sign to the flow rate magnitude and Convert m3/s to l/min
+        flowRateLMIN = flowDirection * flowRateMagnitudeM3S * 1000 * 60;
+        
+        
+        return flowRateLMIN; // Convert m3/s to l/min
+        } 
+        
+    } else {
+            // If denominator is negative, the flow bypasses the orifice and can be calulated by using the MachineFlowCoefficient
+            flowRateLMIN = flowDirection * (((MachineFlowCoefficient / 1.156) / Math.sqrt((OilDensityKGM3 / 1000) / Math.max(hydrostaticPressureBARG, 0.0001))) / 0.06); // Convert m3/h to l/min
+            return flowRateLMIN;
+    }
 }
 
+function CalculateActOilConsumptionLMIN() {
 
+    if (OilHeaderPressure >= hydrostaticPressureBARG) {
+        ActOilConsumptionLMIN = ((MachineFlowCoefficient / 1.156) / Math.sqrt((OilDensityKGM3 / 1000) / Math.max(OilHeaderPressure, 0.0001))) / 0.06
+        return ActOilConsumptionLMIN;
+    } else {
+        ActOilConsumptionLMIN = flowRateLMIN * -1
+        return ActOilConsumptionLMIN;
+    }
+
+}
 
 
 // 6. Simulation Loop
 
 function startSimulation() {
 
+    //Disable fixed property inputs ---
+    setFixedPropertyInputsEnabled(false);
+
+    
     // Set up the interval
     simulationIntervalId = setInterval(runSimulationStep, timeStep * 1000); // timeStep in milliseconds
 
@@ -211,27 +320,30 @@ function runSimulationStep() {
         // 1. Calculate instantaneous flow rate (using existing logic or a modified version)
 
         flowRateLMIN = CalculateflowRateLMIN();
+        ActOilConsumptionLMIN = CalculateActOilConsumptionLMIN();
+        console.log("Act Oil Consumption", ActOilConsumptionLMIN);
+
 
         // 2. Calculate volume change
         let deltaVolume = flowRateLMIN / 60 * timeStep;  // Convert l/min to l/s and multiply by timeStep in seconds
 
         // 3. Update volume
-        //TankOilVolume += deltaVolume;
         
+        // Add checks for SupplyLineVolume and TankVolume to prevent division by zero in percentages
+        const currentSupplyLineVolume = SupplyLineVolume > 0 ? SupplyLineVolume : 1; // Use a safe default
+        const currentTankVolume = TankVolume > 0 ? TankVolume : 1; // Use a safe default
+
         if (SupplyLineOilPercentage < 100 || (TankOilPercentage == 0 && Math.sign(flowRateLMIN) == -1)) {
         SupplyLineOilVolume += deltaVolume; // Update the oil volume in the supply line
 
-        SupplyLineOilPercentage = (SupplyLineOilVolume / SupplyLineVolume) * 100; // Percentage of oil in the supply line
+        SupplyLineOilPercentage = (SupplyLineOilVolume / currentSupplyLineVolume) * 100; // Percentage of oil in the supply line
         SupplyLineOilPercentage = Math.max(0, Math.min(SupplyLineOilPercentage, 100)); // Ensure percentage is between 0 and 100
-
-
-
-
 
         } else {
             TankOilVolume += deltaVolume; // Update the oil volume in the tank
+            TankOilVolume = Math.min(TankOilVolume,TankVolume)   // make sure that the Tank is not filled beyond it
 
-            TankOilPercentage = (TankOilVolume / TankVolume) * 100; // Percentage of oil in the tank
+            TankOilPercentage = (TankOilVolume / currentTankVolume) * 100; // Percentage of oil in the tank
             TankOilPercentage = Math.max(0, Math.min(TankOilPercentage, 100)); // Ensure percentage is between 0 and 100
 
         }
@@ -239,6 +351,12 @@ function runSimulationStep() {
 
         // 4. Update current time
         currentTime += timeStep;
+
+        // Add data to chart
+        chartData.labels.push(currentTime.toFixed(1)); // Store time
+        chartData.datasets[0].data.push(TankOilPercentage.toFixed(2)); // Store tank percentage
+        chartData.datasets[1].data.push(SupplyLineOilPercentage.toFixed(2)); // Store supply line percentage
+        oilLevelChart.update(); // Update the chart to show new data
 
         // 5. Update UI (e.g., display TankOilVolume, update canvas)
 
@@ -254,24 +372,25 @@ function runSimulationStep() {
 
         //Oil Tank Level
         context.fillStyle = '#9E6851'; // Fill color for the oil level
-        context.fillRect(453.5, 24 + (158 * (1 - TankOilPercentage / 100)), 83, 158 * (TankOilPercentage / 100)); // Fill the tank based on the percentage
+        context.fillRect(423.5, 24 + (158 * (1 - TankOilPercentage / 100)), 83, 158 * (TankOilPercentage / 100)); // Fill the tank based on the percentage
 
         context.strokeStyle = '#000000';
-        context.strokeRect(453.5, 24, 83, 158);
+        context.strokeRect(423.5, 24, 83, 158);
 
         // Supply Line Oil Level
         context.strokeStyle = '#9E6851';
         context.lineWidth = 6;
         context.beginPath();
-        context.moveTo(495, 360);
-        context.lineTo(495, 360 - (180 * (SupplyLineOilPercentage / 100))); // Draw the oil level line in the supply line
+        context.moveTo(465, 360);
+        context.lineTo(465, 360 - (180 * (SupplyLineOilPercentage / 100))); // Draw the oil level line in the supply line
         context.stroke();
         context.closePath();
 
 
         // Display the results in the process data panel
         displaySupplyLineOilVolumePro.textContent = SupplyLineOilPercentage.toFixed(2); // Display flow rate in m3/s
-        displayflowRateLMINPro.textContent = flowRateLMIN.toFixed(2); // Display flow rate in m3/s
+        displayflowRateLMINPro.textContent = flowRateLMIN.toFixed(2); // Display flow rate in l/min
+        displayActOilConsumptionLMINPro.textContent = ActOilConsumptionLMIN.toFixed(2); // Display flow rate in l/min
         displaycurrentTimePro.textContent = currentTime.toFixed(2); // Display the current time in s
         displayTankOilVolumePro.textContent = TankOilPercentage.toFixed(2); // Display the current time in s
 
@@ -280,6 +399,8 @@ function runSimulationStep() {
         stopSimulation();
     }
 }
+
+
 
 // Function to stop the simulation
 function stopSimulation() {
@@ -303,14 +424,23 @@ function resetSimulation() {
 
     // Redraw the initial state of the system (if applicable)
     CalulateBoundryVarialbles();
+    resetDrawing();
 
     // reset Process Data Panel
     displaySupplyLineOilVolumePro.textContent = "0.00"; // Reset supply line oil volume percentage
     displayflowRateLMINPro.textContent = "0.00"; // Reset flow rate
+    displayActOilConsumptionLMINPro.textContent = "0.00"; // Reset flow rate
     displaycurrentTimePro.textContent = "0.00"; // Reset current time
     displayTankOilVolumePro.textContent = "0.00"; // Reset tank oil volume percentage
 
+    // Clear chart data on reset
+    chartData.labels = [];
+    chartData.datasets[0].data = [];
+    chartData.datasets[1].data = [];
+    oilLevelChart.update(); // Update chart to reflect empty data
 
+    //  Enable fixed property inputs ---
+    setFixedPropertyInputsEnabled(true);
     
   
     // Reset the simulation interval
@@ -319,6 +449,17 @@ function resetSimulation() {
     }
     simulationIntervalId = null; // Clear the interval ID
     console.log("Simulation reset.");
+}
+
+//Function to enable/disable fixed property inputs ---
+function setFixedPropertyInputsEnabled(enabled) {
+    fixedPropertyInputs.forEach(input => {
+        input.disabled = !enabled; // Set disabled to true if not enabled, false if enabled
+        // Also remove any invalid-input styling when enabled
+        if (enabled) {
+            input.classList.remove('invalid-input');
+        }
+    });
 }
 
 
@@ -335,4 +476,6 @@ StopButton.addEventListener('click', function() {
 const ResetButton = document.getElementById('ResetButton');
 ResetButton.addEventListener('click', function() {
     resetSimulation(); 
+});
+
 });

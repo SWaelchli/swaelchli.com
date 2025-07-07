@@ -6,8 +6,7 @@
     <title>API 614 Overhead Oil Tank Simulation</title>
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="style.css">
-
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 </head>
 <body>
     <header>
@@ -24,19 +23,22 @@
             <div class="control-group">
                 <h3>Fixed Properties</h3>
                 <label for="OilDensityKGM3"> Oil Density (kg/m3):</label>
-                <input type="number" id="OilDensityKGM3" min="0" value="860" step="1">
+                <input type="number" id="OilDensityKGM3" min="1" value="860" step="1">
                 
                 <label for="OilViscosity"> Kinematic Oil Viscosity (mm2/s):</label>
-                <input type="number" id="OilViscosity" min="0" value="32" step="1">
+                <input type="number" id="OilViscosity" min="1" value="32" step="1">
 
                 <label for="SupplyLineInnerDiameter">Supply Line Inner Diameter (mm):</label>
-                <input type="number" id="SupplyLineInnerDiameter" min="0" value="50" step="5">
+                <input type="number" id="SupplyLineInnerDiameter" min="6" value="50" step="5">
 
                 <label for="TankVolume"> Tank Volume (l):</label>
-                <input type="number" id="TankVolume" min="0" value="1000" step="100">
+                <input type="number" id="TankVolume" min="1" value="1000" step="100">
 
-                <label for="TankElevationM"> Tank Elevation above ground (m):</label>
-                <input type="number" id="TankElevationM" min="0" value="6" step="0.5">
+                <label for="TankElevationM"> Tank Elevation above Ground (m):</label>
+                <input type="number" id="TankElevationM" min="0.5" value="6" step="0.5">
+
+                <label for="NormOilConsumptionLMIN"> Normal Oil Flow to Machines (l/min):</label>
+                <input type="number" id="NormOilConsumptionLMIN" min="1" value="30" step="0.5">
 
 
             </div>
@@ -56,8 +58,7 @@
 
         <div class="simulation-area">
             <canvas id="tankCanvas" width="600" height="450"></canvas>
-            
-
+            <canvas id="oilLevelChart" width="400" height="250"></canvas> 
         </div>
 
         <div class="process-data-panel">
@@ -65,20 +66,9 @@
 
                 <p>Oil Pressure: <span id="displayOilHeaderPressurePro">2.0</span> barg</p>
 
-                <!--<p>Orifice Diameter: <span id="displayOrificeDiameterPro">5.0</span> mm</p>      delete later-->
+                <p>Oil Flow Rate to Tank: <span id="displayflowRateLMINPro">0.0</span> l/min</p>
 
-                <!--<p>Oil Density: <span id="displayOilDensityKGM3Pro">860</span> kg/m3</p>      delete later-->
-
-                <!--<p>Kinematic Oil Viscosity: <span id="displayOilViscosityPro">32</span> mm2/s</p>      delete later-->
-
-                <!--<p>Supply Line Inner Diameter: <span id="displaySupplyLineInnerDiameterPro">50</span> mm</p>      delete later-->
-
-                <!--<p>Tank Volume: <span id="displayTankVolumePro">1000</span> l</p>      delete later-->
-
-                <!--<p>Tank Elevation: <span id="displayTankElevationMPro">6</span> m</p>      delete later-->
-
-
-                <p>Oil Flow Rate: <span id="displayflowRateLMINPro">0.0</span> l/min</p>
+                <p>Oil Consumption: <span id="displayActOilConsumptionLMINPro">0.0</span> l/min</p>
 
                 <p>Oil Volume in Supply Line: <span id="displaySupplyLineOilVolumePro">0.0</span> %</p>
 
@@ -92,8 +82,6 @@
 
 
 
-
-
         </div>
     
     </div>
@@ -102,8 +90,9 @@
         <p>&copy; 2025 S Waelchli. All rights reserved.</p>
     </footer>
 
+    <script src="drawing.js"></script>
     <script src="overhead-tank.js"></script>
-     <script src="drawing.js"></script>
+
    
 </body>
 </html>

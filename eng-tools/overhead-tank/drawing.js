@@ -66,6 +66,13 @@ function resetDrawing() {
     context.strokeStyle = '#000000';
     context.beginPath();
     context.moveTo(30, 400);
+    context.lineTo(510, 400);
+    context.stroke();
+    context.closePath();
+
+    context.strokeStyle = '#000000';
+    context.beginPath();
+    context.moveTo(540, 400);
     context.lineTo(560, 400);
     context.stroke();
     context.closePath();
@@ -74,13 +81,6 @@ function resetDrawing() {
     context.beginPath();
     context.moveTo(40, 220);
     context.lineTo(40, 390);
-    context.stroke();
-    context.closePath();
-
-    context.strokeStyle = '#000000';
-    context.beginPath();
-    context.moveTo(40, 390);
-    context.lineTo(130, 390);
     context.stroke();
     context.closePath();
 
@@ -100,64 +100,65 @@ function resetDrawing() {
 
     context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(140, 390);
-    context.lineTo(490, 390);
+    context.moveTo(35, 390);
+    context.lineTo(510, 390);
     context.stroke();
     context.closePath();
 
     context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(490, 390);
-    context.lineTo(490, 360);
-    context.stroke();
-    context.closePath();
-
-    context.strokeStyle = '#000000';
-    context.beginPath();
-    context.moveTo(500, 360);
-    context.lineTo(500, 390);
-    context.stroke();
-    context.closePath();
-
-    context.strokeStyle = '#000000';
-    context.beginPath();
-    context.moveTo(500, 390);
+    context.moveTo(540, 390);
     context.lineTo(560, 390);
     context.stroke();
     context.closePath();
 
+
     context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(475, 360);
-    context.lineTo(493, 360);
+    context.moveTo(460, 390);
+    context.lineTo(460, 360);
     context.stroke();
     context.closePath();
 
     context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(497, 360);
-    context.lineTo(515, 360);
+    context.moveTo(470, 360);
+    context.lineTo(470, 390);
     context.stroke();
     context.closePath();
 
     context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(490, 360);
-    context.lineTo(490, 180);
+    context.moveTo(445, 360);
+    context.lineTo(463, 360);
     context.stroke();
     context.closePath();
 
     context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(500, 360);
-    context.lineTo(500, 180);
+    context.moveTo(467, 360);
+    context.lineTo(485, 360);
+    context.stroke();
+    context.closePath();
+
+    context.strokeStyle = '#000000';
+    context.beginPath();
+    context.moveTo(460, 360);
+    context.lineTo(460, 180);
+    context.stroke();
+    context.closePath();
+
+    context.strokeStyle = '#000000';
+    context.beginPath();
+    context.moveTo(470, 360);
+    context.lineTo(470, 180);
     context.stroke();
     context.closePath();
 
     //Tank
 
     context.strokeStyle = '#000000';
-    context.strokeRect(453.5, 24, 83, 158);
+    context.strokeRect(423.5, 24, 83, 158);
 
 
     //draw oil in header line
@@ -165,6 +166,14 @@ function resetDrawing() {
     context.lineWidth = 6;
     context.beginPath();
     context.moveTo(31, 395);
+    context.lineTo(510, 395);
+    context.stroke();
+    context.closePath();
+
+    context.strokeStyle = '#9E6851';
+    context.lineWidth = 6;
+    context.beginPath();
+    context.moveTo(540, 395);
     context.lineTo(560, 395);
     context.stroke();
     context.closePath();
@@ -185,12 +194,55 @@ function resetDrawing() {
 
     context.strokeStyle = '#9E6851';
     context.beginPath();
-    context.moveTo(495, 359);
-    context.lineTo(495, 395);
+    context.moveTo(465, 359);
+    context.lineTo(465, 395);
     context.stroke();
     context.closePath();
 
+    //check valve header
+
+    // Specific Check Valve Symbol (similar to the image you provided)
+    context.lineWidth = 3;
+    context.strokeStyle = '#000000';
+
+    // Left vertical bar
+    context.beginPath();
+    context.moveTo(510, 385);
+    context.lineTo(510, 405);
+    context.stroke();
+    context.closePath();
+
+    // Right vertical bar
+    context.beginPath();
+    context.moveTo(540, 385);
+    context.lineTo(540, 405);
+    context.stroke();
+    context.closePath();
+
+    context.lineWidth = 2; // Thinner line for the arrow
+    context.beginPath();
+    context.moveTo(540, 385);
+    context.lineTo(510, 405);
+    context.stroke();
+    context.closePath();
+
+
+    context.fillStyle = '#000000';
+    context.beginPath();
+    context.arc(540, 385, 3, 0, Math.PI * 2, true); // Red dot at the top of the right bar
+    context.fill();
+    context.closePath();
+
+
+    // Arrowhead at the end of the red diagonal line (pointing towards the left bar)
+    context.beginPath();
+    context.moveTo(510, 405);
+    context.lineTo(515, 395); // Back of arrow
+    context.lineTo(518, 408); // Back of arrow
+    context.closePath();
+    context.stroke();
+    context.fill();
+
+
+
 };
-
-
-

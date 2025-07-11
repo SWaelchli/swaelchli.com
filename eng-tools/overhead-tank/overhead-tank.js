@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // 1. Get references to the HTML elements
 
+// Canvas elements
+const tankCanvas = document.getElementById('tankCanvas');
+const tankContext = tankCanvas.getContext('2d');
+
+
 // Oil Header Pressure
 const OilHeaderPressureSlider = document.getElementById('OilHeaderPressure');
 const displayOilHeaderPressure = document.getElementById('displayOilHeaderPressure');
@@ -61,6 +66,7 @@ const fixedPropertyInputs = [
 let DischargeCoefficient = 0.61; // Discharge coefficient for the orifice
 let SupplyLineOilVolume = 0; // Volume of oil in the supply line in litre
 let TankOilVolume = 0; // Volume of oil in the tank in litre
+let TankAreaToVolumeRatio = 0.0625 // 1 / Tank Area  --> TankVolume * TankAreaToVolumeRatio = Height
 
 let currentTime = 0; // Current time in seconds
 let timeStep = 0.1; // Time step for the simulation in seconds
@@ -109,9 +115,9 @@ let TankOilPercentage = 0
 
 function CalulateBoundryVarialbles() {
     // Ensure that values are positive before calculation to prevent NaN or Infinity
-    const safeSupplyLineInnerDiameter = SupplyLineInnerDiameter > 0 ? SupplyLineInnerDiameter : 1; // Use a small positive default if 0 or negative
-    const safeTankElevationM = TankElevationM > 0 ? TankElevationM : 1; // Use a small positive default if 0 or negative
-    const safeTankVolume = TankVolume > 0 ? TankVolume : 1; // Use a small positive default if 0 or negative
+    safeSupplyLineInnerDiameter = SupplyLineInnerDiameter > 0 ? SupplyLineInnerDiameter : 1; // Use a small positive default if 0 or negative
+    safeTankElevationM = TankElevationM > 0 ? TankElevationM : 1; // Use a small positive default if 0 or negative
+    safeTankVolume = TankVolume > 0 ? TankVolume : 1; // Use a small positive default if 0 or negative
 
     SupplyLineVolume = Math.PI * Math.pow((safeSupplyLineInnerDiameter / 100) / 2, 2) * (safeTankElevationM * 10);   // TankElevation from m to dm, Volume of the supply line in l 
     SupplyLineOilPercentage = (SupplyLineOilVolume / SupplyLineVolume) * 100; // Percentage of oil in the supply line
@@ -120,7 +126,6 @@ function CalulateBoundryVarialbles() {
     TankOilPercentage = Math.max(0, Math.min(TankOilPercentage, 100)); // Ensure percentage is between 0 and 100
 
     MachineFlowCoefficient = (NormOilConsumptionLMIN * 0.06) * Math.sqrt((OilDensityKGM3 / 1000)/ OilHeaderPressure) * 1.156   // Cv Flow Factor
-    console.log("Cv Flow Factor:", MachineFlowCoefficient);
 }
 
 CalulateBoundryVarialbles()
@@ -182,7 +187,7 @@ initializeChart();
 
 
             // You can now use the 'OilHeaderPressure' variable in your JavaScript code
-        //console.log("Current Oil Header Pressure:", OilHeaderPressure);
+
     });
 
 
@@ -251,11 +256,11 @@ NormOilConsumptionLMINInput.addEventListener('input', function() {
 
 function CalculateflowRateLMIN() {
     // Ensure that values are positive before calculation to prevent NaN or Infinity
-    const safeOilDensityKGM3 = OilDensityKGM3 > 0 ? OilDensityKGM3 : 1; // Use a small positive default if 0 or negative
-    const safeOrificeDiameter = OrificeDiameter > 0 ? OrificeDiameter : 0.001; // Use a small positive default if 0 or negative
+    safeOilDensityKGM3 = OilDensityKGM3 > 0 ? OilDensityKGM3 : 1; // Use a small positive default if 0 or negative
+    safeOrificeDiameter = OrificeDiameter > 0 ? OrificeDiameter : 0.001; // Use a small positive default if 0 or negative
 
     // Calculate the flow rate in liter per minutes using the orifice equation
-    hydrostaticPressureBARG = (((SupplyLineOilPercentage / 100) * TankElevationM * safeOilDensityKGM3 * 9.81)/100000); // hydrostatic pressure in barg
+    hydrostaticPressureBARG = (((SupplyLineOilPercentage / 100) * TankElevationM * safeOilDensityKGM3 * 9.81)/100000) + (((TankOilPercentage / 100) * (TankVolume/1000) * TankAreaToVolumeRatio * safeOilDensityKGM3 * 9.81)/100000); // hydrostatic pressure in barg
     let RawDeltaPressureBAR = OilHeaderPressure - hydrostaticPressureBARG; //deltaPressure in bar, header pressure - hydrostatic pressure
     // Determine the sign of the flow rate based on rawDeltaPressure
     let flowDirection = Math.sign(RawDeltaPressureBAR);
@@ -298,6 +303,108 @@ function CalculateActOilConsumptionLMIN() {
 
 }
 
+function DrawVerticalFlowArrow(arrowX, arrowY, arrowSize, arrowLength, FlowRate, FlowDirection) {          //(X Position, Y Position, Size of Arrowhead, Length of Arrow Line, Flow direction (1 or -1))
+    
+
+    tankContext.strokeStyle = '#007bff'; // Blue color for the arrow
+    tankContext.lineWidth = 2;
+
+    FlowRate = FlowRate * FlowDirection
+
+    if (FlowRate * FlowDirection  > 1) { // Flow into the tank (Up)
+
+        tankContext.beginPath();
+        tankContext.moveTo(arrowX, arrowY + arrowLength / 2);
+        tankContext.lineTo(arrowX, arrowY - arrowLength / 2);
+        // Arrowhead
+        tankContext.lineTo(arrowX + arrowSize / 2, arrowY - arrowLength / 2 + arrowSize);
+        tankContext.moveTo(arrowX, arrowY - arrowLength / 2);
+        tankContext.lineTo(arrowX - arrowSize / 2, arrowY - arrowLength / 2 + arrowSize);
+        tankContext.stroke();
+        tankContext.closePath();
+
+    } else if (FlowRate * FlowDirection  < -1) { // Flow out of the tank (Down)
+
+        tankContext.beginPath();
+        tankContext.moveTo(arrowX, arrowY - arrowLength / 2);
+        tankContext.lineTo(arrowX, arrowY + arrowLength / 2);
+        // Arrowhead
+        tankContext.lineTo(arrowX - arrowSize / 2, arrowY + arrowLength / 2 - arrowSize);
+        tankContext.moveTo(arrowX, arrowY + arrowLength / 2);
+        tankContext.lineTo(arrowX + arrowSize / 2, arrowY + arrowLength / 2 - arrowSize);
+        tankContext.stroke();
+        tankContext.closePath(); 
+
+    } else {
+
+        // No significant flow, draw a small vertical line or nothing
+        tankContext.beginPath();
+        tankContext.moveTo(arrowX, arrowY - 10);
+        tankContext.lineTo(arrowX, arrowY + 10);
+        tankContext.stroke();
+        tankContext.closePath();
+        
+    }
+}
+
+function DrawHorizontalFlowArrow(arrowX, arrowY, arrowSize, arrowLength, FlowRate, FlowDirection) {          //(X Position, Y Position, Size of Arrowhead, Length of Arrow Line, Flow direction (1 or -1))
+    
+
+    tankContext.strokeStyle = '#007bff'; // Blue color for the arrow
+    tankContext.lineWidth = 2;
+
+    if (FlowRate * FlowDirection  > 1) { // Flow into the tank (left to right in the visual pipe)
+        tankContext.beginPath();
+        tankContext.moveTo(arrowX - arrowLength / 2, arrowY);
+        tankContext.lineTo(arrowX + arrowLength / 2, arrowY);
+        // Arrowhead
+        tankContext.lineTo(arrowX + arrowLength / 2 - arrowSize, arrowY - arrowSize / 2);
+        tankContext.moveTo(arrowX + arrowLength / 2, arrowY);
+        tankContext.lineTo(arrowX + arrowLength / 2 - arrowSize, arrowY + arrowSize / 2);
+        tankContext.stroke();
+        tankContext.closePath();
+    } else if (FlowRate * FlowDirection < -1) { // Flow out of the tank (right to left in the visual pipe)
+        tankContext.beginPath();
+        tankContext.moveTo(arrowX + arrowLength / 2, arrowY);
+        tankContext.lineTo(arrowX - arrowLength / 2, arrowY);
+        // Arrowhead
+        tankContext.lineTo(arrowX - arrowLength / 2 + arrowSize, arrowY - arrowSize / 2);
+        tankContext.moveTo(arrowX - arrowLength / 2, arrowY);
+        tankContext.lineTo(arrowX - arrowLength / 2 + arrowSize, arrowY + arrowSize / 2);
+        tankContext.stroke();
+        tankContext.closePath();
+    } else {
+        // No significant flow, draw a small horizontal line or nothing
+        tankContext.beginPath();
+        tankContext.moveTo(arrowX - 10, arrowY);
+        tankContext.lineTo(arrowX + 10, arrowY);
+        tankContext.stroke();
+        tankContext.closePath();
+    }
+}
+
+function UpdateProcessDataPanel() {
+    
+    // Display the results in the process data panel
+    displaySupplyLineOilVolumePro.textContent = SupplyLineOilPercentage.toFixed(2); // Display flow rate in m3/s
+    displayflowRateLMINPro.textContent = flowRateLMIN.toFixed(2); // Display flow rate in l/min
+    displayActOilConsumptionLMINPro.textContent = ActOilConsumptionLMIN.toFixed(2); // Display flow rate in l/min
+    displaycurrentTimePro.textContent = currentTime.toFixed(2); // Display the current time in s
+    displayTankOilVolumePro.textContent = TankOilPercentage.toFixed(2); // Display the current time in s
+    
+}
+
+function ResetProcessDataPanel() {
+    
+    displaySupplyLineOilVolumePro.textContent = "0.00"; // Reset supply line oil volume percentage
+    displayflowRateLMINPro.textContent = "0.00"; // Reset flow rate
+    displayActOilConsumptionLMINPro.textContent = "0.00"; // Reset flow rate
+    displaycurrentTimePro.textContent = "0.00"; // Reset current time
+    displayTankOilVolumePro.textContent = "0.00"; // Reset tank oil volume percentage
+    
+}
+
+
 
 // 6. Simulation Loop
 
@@ -315,13 +422,14 @@ function startSimulation() {
 
 }
 
+
 function runSimulationStep() {
     if (currentTime <= totalSimulationDuration) {
         // 1. Calculate instantaneous flow rate (using existing logic or a modified version)
 
         flowRateLMIN = CalculateflowRateLMIN();
         ActOilConsumptionLMIN = CalculateActOilConsumptionLMIN();
-        console.log("Act Oil Consumption", ActOilConsumptionLMIN);
+
 
 
         // 2. Calculate volume change
@@ -354,45 +462,58 @@ function runSimulationStep() {
 
         // Add data to chart
         chartData.labels.push(currentTime.toFixed(1)); // Store time
-        chartData.datasets[0].data.push(TankOilPercentage.toFixed(2)); // Store tank percentage
+        chartData.datasets[0].data.push((TankOilPercentage).toFixed(2)); // Store tank percentage
         chartData.datasets[1].data.push(SupplyLineOilPercentage.toFixed(2)); // Store supply line percentage
         oilLevelChart.update(); // Update the chart to show new data
 
         // 5. Update UI (e.g., display TankOilVolume, update canvas)
 
-        var canvas, context, canvaso, contexto;
-        canvaso = document.getElementById('tankCanvas');
-        context = canvaso.getContext('2d');
-
-        context.clearRect(0, 0, canvaso.width, canvaso.height); // Clear the canvas
+        tankContext.clearRect(0, 0, tankCanvas.width, tankCanvas.height); // Clear the canvas
         resetDrawing();
 
+        // Add dynamic displays for Pressure, Flow Rate, and Flow Direction Arrow
+        tankContext.font = '16px Arial';
+        tankContext.fillStyle = '#333'; // Dark gray color for text
 
-        context.lineWidth = 3;
+        // Display Flow to Tank
+        
+        tankContext.save();
+        tankContext.translate(400, 275);
+        tankContext.rotate(-Math.PI/2);
+        tankContext.textAlign = "center";
+        tankContext.fillText(`${flowRateLMIN.toFixed(1)} l/min`, 0, 0);
+        tankContext.restore();
 
+        DrawVerticalFlowArrow(410, 280, 10, 50, flowRateLMIN, 1) //Flow to and from Overhead tank
+
+        // Display Flow to Machine
+        tankContext.fillText(`${ActOilConsumptionLMIN.toFixed(1)} l/min`, 180, 360);
+
+        DrawHorizontalFlowArrow(220, 370, 10, 50, ActOilConsumptionLMIN, -1) //Flow to Machines
+
+        //Display header 
+
+        
         //Oil Tank Level
-        context.fillStyle = '#9E6851'; // Fill color for the oil level
-        context.fillRect(423.5, 24 + (158 * (1 - TankOilPercentage / 100)), 83, 158 * (TankOilPercentage / 100)); // Fill the tank based on the percentage
 
-        context.strokeStyle = '#000000';
-        context.strokeRect(423.5, 24, 83, 158);
+        tankContext.lineWidth = 3;
+        tankContext.fillStyle = '#9E6851'; // Fill color for the oil level
+        tankContext.fillRect(393.5, 24 + (158 * (1 - TankOilPercentage / 100)), 83, 158 * (TankOilPercentage / 100)); // Fill the tank based on the percentage
+
+        tankContext.strokeStyle = '#000000';
+        tankContext.strokeRect(393.5, 24, 83, 158);
 
         // Supply Line Oil Level
-        context.strokeStyle = '#9E6851';
-        context.lineWidth = 6;
-        context.beginPath();
-        context.moveTo(465, 360);
-        context.lineTo(465, 360 - (180 * (SupplyLineOilPercentage / 100))); // Draw the oil level line in the supply line
-        context.stroke();
-        context.closePath();
+        tankContext.strokeStyle = '#9E6851';
+        tankContext.lineWidth = 6;
+        tankContext.beginPath();
+        tankContext.moveTo(435, 360);
+        tankContext.lineTo(435, 360 - (180 * (SupplyLineOilPercentage / 100))); // Draw the oil level line in the supply line
+        tankContext.stroke();
+        tankContext.closePath();
 
+        UpdateProcessDataPanel()
 
-        // Display the results in the process data panel
-        displaySupplyLineOilVolumePro.textContent = SupplyLineOilPercentage.toFixed(2); // Display flow rate in m3/s
-        displayflowRateLMINPro.textContent = flowRateLMIN.toFixed(2); // Display flow rate in l/min
-        displayActOilConsumptionLMINPro.textContent = ActOilConsumptionLMIN.toFixed(2); // Display flow rate in l/min
-        displaycurrentTimePro.textContent = currentTime.toFixed(2); // Display the current time in s
-        displayTankOilVolumePro.textContent = TankOilPercentage.toFixed(2); // Display the current time in s
 
     } else {
         // Simulation finished
@@ -417,22 +538,17 @@ function resetSimulation() {
 
     
     // Reset the canvas drawing (if applicable)
-
-    canvaso = document.getElementById('tankCanvas');
-    context = canvaso.getContext('2d');
-    context.clearRect(0, 0, canvaso.width, canvaso.height); // Clear the canvas
+    tankContext.clearRect(0, 0, tankCanvas.width, tankCanvas.height); // Clear the canvas
 
     // Redraw the initial state of the system (if applicable)
     CalulateBoundryVarialbles();
     resetDrawing();
 
-    // reset Process Data Panel
-    displaySupplyLineOilVolumePro.textContent = "0.00"; // Reset supply line oil volume percentage
-    displayflowRateLMINPro.textContent = "0.00"; // Reset flow rate
-    displayActOilConsumptionLMINPro.textContent = "0.00"; // Reset flow rate
-    displaycurrentTimePro.textContent = "0.00"; // Reset current time
-    displayTankOilVolumePro.textContent = "0.00"; // Reset tank oil volume percentage
 
+    // reset Process Data Panel
+    ResetProcessDataPanel();
+
+  
     // Clear chart data on reset
     chartData.labels = [];
     chartData.datasets[0].data = [];
@@ -441,6 +557,9 @@ function resetSimulation() {
 
     //  Enable fixed property inputs ---
     setFixedPropertyInputsEnabled(true);
+
+    // Update the UI
+    
     
   
     // Reset the simulation interval

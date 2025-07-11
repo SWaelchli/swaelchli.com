@@ -114,6 +114,6 @@ canvas {
     display: block;
     width: calc(100% - 30px); /* Adjust for padding */
     text-align: center;
-    margin-top: 15px;
+    margin-top: 0px;
 }
 

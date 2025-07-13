@@ -471,6 +471,12 @@ function runSimulationStep() {
         tankContext.clearRect(0, 0, tankCanvas.width, tankCanvas.height); // Clear the canvas
         resetDrawing();
 
+        // Update and draw pressure gauges
+        // P1: Oil Header Pressure (from slider)
+        drawPressureGauge(tankContext, 250, 360, OilHeaderPressure, "P1");
+        // P2: Hydrostatic Pressure at the bottom of the tank
+        drawPressureGauge(tankContext, 540, 360, hydrostaticPressureBARG, "P2");
+
         // Add dynamic displays for Pressure, Flow Rate, and Flow Direction Arrow
         tankContext.font = '16px Arial';
         tankContext.fillStyle = '#333'; // Dark gray color for text

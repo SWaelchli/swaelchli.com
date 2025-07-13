@@ -246,3 +246,62 @@ function resetDrawing() {
 
 
 };
+
+/**
+ * Draws a pressure gauge on the canvas.
+ * @param {CanvasRenderingContext2D} context - The 2D rendering context of the canvas.
+ * @param {number} x - The x-coordinate of the gauge's center.
+ * @param {number} y - The y-coordinate of the gauge's center.
+ * @param {number} value - The pressure value to display.
+ * @param {string} label - The label for the pressure gauge (e.g., "P1").
+ */
+function drawPressureGauge(context, x, y, value, label) {
+    const radius = 20;
+    const needleLength = 15;
+    const needleColor = 'red';
+    const gaugeColor = '#333';
+    const textColor = '#000';
+
+    // Draw gauge circle
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2);
+    context.strokeStyle = gaugeColor;
+    context.lineWidth = 2;
+    context.stroke();
+    context.closePath();
+
+    // Draw needle
+    context.save();
+    context.translate(x, y);
+    // Map value (0-5 barg) to angle (e.g., -135 deg to 135 deg relative to horizontal)
+    // Assuming max pressure is 5 barg for the gauge scale
+    const maxPressure = 5;
+    const angleRange = 270 * (Math.PI / 180); // 270 degrees in radians
+    const startAngle = -135 * (Math.PI / 180); // Start at -135 degrees (bottom left)
+
+    // Ensure value is within bounds for angle calculation
+    const clampedValue = Math.max(0, Math.min(value, maxPressure));
+    const angle = startAngle + (clampedValue / maxPressure) * angleRange;
+
+    context.rotate(angle);
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(needleLength, 0);
+    context.strokeStyle = needleColor;
+    context.lineWidth = 2;
+    context.stroke();
+    context.closePath();
+    context.restore();
+
+    // Draw value text
+    context.font = '12px Arial';
+    context.fillStyle = textColor;
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillText(`${value.toFixed(1)}`, x, y + radius + 10); // Display value below gauge
+
+    // Draw label
+    context.font = '14px Arial';
+    context.fillStyle = textColor;
+    context.fillText(label, x, y - radius - 10); // Display label above gauge
+}

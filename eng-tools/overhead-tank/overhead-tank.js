@@ -64,9 +64,10 @@ const fixedPropertyInputs = [
 //General variables
 
 let DischargeCoefficient = 0.61; // Discharge coefficient for the orifice
-let SupplyLineOilVolume = 0; // Volume of oil in the supply line in litre
-let TankOilVolume = 0; // Volume of oil in the tank in litre
 let TankAreaToVolumeRatio = 0.0625 // 1 / Tank Area  --> TankVolume * TankAreaToVolumeRatio = Height
+
+
+
 
 let currentTime = 0; // Current time in seconds
 let timeStep = 0.1; // Time step for the simulation in seconds
@@ -74,22 +75,17 @@ let simulationIntervalId;
 let totalSimulationDuration = 60 * 60; // Total duration of the simulation in seconds
 
 
+
+
 //  Chart variables
 let oilLevelChart; // Variable to hold the Chart.js instance
 let chartData = {
     labels: [], // Stores time values
     datasets: [{
-        label: 'Tank Oil Volume (%)',
+        label: 'Stored Oil (%)',
         data: [],
         borderColor: 'rgb(236, 40, 40)', // Red
         backgroundColor: 'rgba(250, 116, 116, 0.2)',
-        tension: 0.1,
-        fill: true
-    }, {
-        label: 'Supply Line Oil Volume (%)',
-        data: [],
-        borderColor: 'rgb(54, 162, 235)', // Blue
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
         tension: 0.1,
         fill: true
     }]
@@ -98,6 +94,7 @@ let chartData = {
 
 // This variable will hold the current value of the slider ar input
 let OilHeaderPressure = parseFloat(OilHeaderPressureSlider.value);  //barg
+let MachineOilPressure = OilHeaderPressure
 let OrificeDiameter = parseFloat(OrificeDiameterSlider.value);      // mm
 let OilDensityKGM3 = parseFloat(OilDensityKGM3Input.value)                  // // kg/m3
 let OilViscosity = parseFloat(OilViscosityInput.value)              // mm2/s
@@ -106,11 +103,19 @@ let TankVolume = parseFloat(TankVolumeInput.value)
 let TankElevationM = parseFloat(TankElevationMInput.value)              // m
 let NormOilConsumptionLMIN = parseFloat(NormOilConsumptionLMINInput.value)       // l/min
 
-// calulate initial variables
+// Set initial variables
 
+let SupplyLineOilVolume = 0; // Volume of oil in the supply line in litre
+let TankOilVolume = 0; // Volume of oil in the tank in litre
 let SupplyLineVolume = 0
 let SupplyLineOilPercentage = 0
 let TankOilPercentage = 0
+let StoredOilPercentage = 0
+let ActOilConsumptionLMIN = 0
+let flowRateLMIN = 0
+let hydrostaticPressureBARG = 0
+
+updateUI();
 
 
 function CalulateBoundryVarialbles() {
@@ -294,10 +299,20 @@ function CalculateflowRateLMIN() {
 function CalculateActOilConsumptionLMIN() {
 
     if (OilHeaderPressure >= hydrostaticPressureBARG) {
-        ActOilConsumptionLMIN = ((MachineFlowCoefficient / 1.156) / Math.sqrt((OilDensityKGM3 / 1000) / Math.max(OilHeaderPressure, 0.0001))) / 0.06
-        return ActOilConsumptionLMIN;
+        if (OilHeaderPressure <= 0) {
+            ActOilConsumptionLMIN = 0;
+            MachineOilPressure = 0;
+            return ActOilConsumptionLMIN;
+        } else {
+
+        
+            ActOilConsumptionLMIN = ((MachineFlowCoefficient / 1.156) / Math.sqrt((OilDensityKGM3 / 1000) / Math.max(OilHeaderPressure, 0.0001))) / 0.06
+            MachineOilPressure = OilHeaderPressure
+            return ActOilConsumptionLMIN;
+        }
     } else {
         ActOilConsumptionLMIN = flowRateLMIN * -1
+        MachineOilPressure = hydrostaticPressureBARG
         return ActOilConsumptionLMIN;
     }
 
@@ -405,6 +420,84 @@ function ResetProcessDataPanel() {
 }
 
 
+function updateUI() {
+    
+    tankContext.clearRect(0, 0, tankCanvas.width, tankCanvas.height); // Clear the canvas
+    resetDrawing();
+
+    // Update and draw pressure gauges
+    // Pressure to the supply lines that go to the machines
+    drawPressureGauge(tankContext, 330, 360, MachineOilPressure, "");
+    tankContext.lineWidth = 2;
+    tankContext.fillStyle = '#000000'; // Fill color for the oil level
+    context.beginPath();
+    context.moveTo(330, 380);
+    context.lineTo(330, 390);
+    context.stroke();
+    context.closePath();
+
+    // Pressure in the Oil Header
+    drawPressureGauge(tankContext, 540, 360, OilHeaderPressure, "");
+    tankContext.lineWidth = 2;
+    tankContext.fillStyle = '#000000'; // Fill color for the oil level
+    context.beginPath();
+    context.moveTo(540, 380);
+    context.lineTo(540, 390);
+    context.stroke();
+    context.closePath();
+    // Hydrostatic pressure from the tank
+    drawPressureGauge(tankContext, 400, 320, hydrostaticPressureBARG, "");
+    tankContext.lineWidth = 2;
+    tankContext.fillStyle = '#000000'; // Fill color for the oil level
+    context.beginPath();
+    context.moveTo(420, 320);
+    context.lineTo(430, 320);
+    context.stroke();
+    context.closePath();
+
+    // Add dynamic displays for Pressure, Flow Rate, and Flow Direction Arrow
+    tankContext.font = '16px Arial';
+    tankContext.fillStyle = '#333'; // Dark gray color for text
+
+    // Display Flow to Tank
+    
+    tankContext.save();
+    tankContext.translate(400, 240);
+    tankContext.rotate(-Math.PI/2);
+    tankContext.textAlign = "center";
+    tankContext.fillText(`${flowRateLMIN.toFixed(1)} l/min`, 0, 0);
+    tankContext.restore();
+
+    DrawVerticalFlowArrow(410, 240, 10, 50, flowRateLMIN, 1) //Flow to and from Overhead tank
+
+    // Display Flow to Machine
+    tankContext.fillText(`${ActOilConsumptionLMIN.toFixed(1)} l/min`, 220, 360);
+
+    DrawHorizontalFlowArrow(220, 370, 10, 50, ActOilConsumptionLMIN, -1) //Flow to Machines
+
+    //Display header 
+
+    
+    //Oil Tank Level
+
+    tankContext.lineWidth = 3;
+    tankContext.fillStyle = '#9E6851'; // Fill color for the oil level
+    tankContext.fillRect(393.5, 24 + (158 * (1 - TankOilPercentage / 100)), 83, 158 * (TankOilPercentage / 100)); // Fill the tank based on the percentage
+
+    tankContext.strokeStyle = '#000000';
+    tankContext.strokeRect(393.5, 24, 83, 158);
+
+    // Supply Line Oil Level
+    tankContext.strokeStyle = '#9E6851';
+    tankContext.lineWidth = 6;
+    tankContext.beginPath();
+    tankContext.moveTo(435, 360);
+    tankContext.lineTo(435, 360 - (180 * (SupplyLineOilPercentage / 100))); // Draw the oil level line in the supply line
+    tankContext.stroke();
+    tankContext.closePath();
+
+}
+
 
 // 6. Simulation Loop
 
@@ -456,68 +549,20 @@ function runSimulationStep() {
 
         }
 
+        StoredOilPercentage = 100 * (TankOilVolume + SupplyLineOilVolume) / (currentSupplyLineVolume + currentTankVolume); // percentage of combined pipe and tank volume
+        StoredOilPercentage  = Math.max(0, Math.min(StoredOilPercentage , 100)); // Ensure percentage is between 0 and 100
+
 
         // 4. Update current time
         currentTime += timeStep;
 
         // Add data to chart
         chartData.labels.push(currentTime.toFixed(1)); // Store time
-        chartData.datasets[0].data.push((TankOilPercentage).toFixed(2)); // Store tank percentage
-        chartData.datasets[1].data.push(SupplyLineOilPercentage.toFixed(2)); // Store supply line percentage
+        chartData.datasets[0].data.push((StoredOilPercentage).toFixed(2)); // Store tank percentage
         oilLevelChart.update(); // Update the chart to show new data
 
         // 5. Update UI (e.g., display TankOilVolume, update canvas)
-
-        tankContext.clearRect(0, 0, tankCanvas.width, tankCanvas.height); // Clear the canvas
-        resetDrawing();
-
-        // Update and draw pressure gauges
-        // P1: Oil Header Pressure (from slider)
-        drawPressureGauge(tankContext, 250, 360, OilHeaderPressure, "P1");
-        // P2: Hydrostatic Pressure at the bottom of the tank
-        drawPressureGauge(tankContext, 540, 360, hydrostaticPressureBARG, "P2");
-
-        // Add dynamic displays for Pressure, Flow Rate, and Flow Direction Arrow
-        tankContext.font = '16px Arial';
-        tankContext.fillStyle = '#333'; // Dark gray color for text
-
-        // Display Flow to Tank
-        
-        tankContext.save();
-        tankContext.translate(400, 275);
-        tankContext.rotate(-Math.PI/2);
-        tankContext.textAlign = "center";
-        tankContext.fillText(`${flowRateLMIN.toFixed(1)} l/min`, 0, 0);
-        tankContext.restore();
-
-        DrawVerticalFlowArrow(410, 280, 10, 50, flowRateLMIN, 1) //Flow to and from Overhead tank
-
-        // Display Flow to Machine
-        tankContext.fillText(`${ActOilConsumptionLMIN.toFixed(1)} l/min`, 180, 360);
-
-        DrawHorizontalFlowArrow(220, 370, 10, 50, ActOilConsumptionLMIN, -1) //Flow to Machines
-
-        //Display header 
-
-        
-        //Oil Tank Level
-
-        tankContext.lineWidth = 3;
-        tankContext.fillStyle = '#9E6851'; // Fill color for the oil level
-        tankContext.fillRect(393.5, 24 + (158 * (1 - TankOilPercentage / 100)), 83, 158 * (TankOilPercentage / 100)); // Fill the tank based on the percentage
-
-        tankContext.strokeStyle = '#000000';
-        tankContext.strokeRect(393.5, 24, 83, 158);
-
-        // Supply Line Oil Level
-        tankContext.strokeStyle = '#9E6851';
-        tankContext.lineWidth = 6;
-        tankContext.beginPath();
-        tankContext.moveTo(435, 360);
-        tankContext.lineTo(435, 360 - (180 * (SupplyLineOilPercentage / 100))); // Draw the oil level line in the supply line
-        tankContext.stroke();
-        tankContext.closePath();
-
+        updateUI();
         UpdateProcessDataPanel()
 
 
@@ -558,7 +603,6 @@ function resetSimulation() {
     // Clear chart data on reset
     chartData.labels = [];
     chartData.datasets[0].data = [];
-    chartData.datasets[1].data = [];
     oilLevelChart.update(); // Update chart to reflect empty data
 
     //  Enable fixed property inputs ---
@@ -566,6 +610,7 @@ function resetSimulation() {
 
     // Update the UI
     
+    updateUI();
     
   
     // Reset the simulation interval

@@ -298,7 +298,7 @@ function drawPressureGauge(context, x, y, value, label) {
     context.fillStyle = textColor;
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.fillText(`${value.toFixed(1)}`, x, y + radius + 10); // Display value below gauge
+    context.fillText(`${value.toFixed(1)}`, x, y + radius -10); // Display value below gauge
 
     // Draw label
     context.font = '14px Arial';

@@ -25,17 +25,29 @@
     background-color: transparent; /* Make sure the background is transparent */
 }
 
-#oilLevelChart {
-    position: absolute; /* Position relative to .simulation-area */
-    /* Adjust these values to position the graph as desired */
-    top: 460px;   /* Example: 100px from the top of .simulation-area */
-    left: 000px;  /* Example: 100px from the left of .simulation-area */
-    width: 400px; /* Match the width set in index.html */
-    height: 250px; /* Match the height set in index.html */
-    z-index: 2; /* Ensure it's on top of tankCanvas */
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
-    border: 1px solid #ccc; /* Add a border for the graph area */
+
+.charts-container {
+    position: absolute;
+    top: 460px; /* Adjust as needed */
+    left: 0;
+    width: 580px; /* Adjust based on desired layout */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 charts per row */
+    gap: 10px; /* Space between charts */
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    padding: 10px;
 }
+
+.charts-container canvas {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+}
+
+
 
 
 

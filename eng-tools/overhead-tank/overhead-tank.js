@@ -145,19 +145,21 @@ function initializeChart() {
         options: {
             responsive: true,
             maintainAspectRatio: false, // Important for custom sizing
+
             animation: {
                 duration: 0 // Disable animation for smoother updates
             },
             scales: {
                 x: {
                     title: {
-                        display: true,
-                        text: 'Time (s)'
+                        display: false,
+                        text: 'Time (s)',
+                        align: 'start'
                     }
                 },
                 y: {
                     title: {
-                        display: true,
+                        display: false,
                         text: 'Volume (%)'
                     },
                     min: 0,
@@ -166,9 +168,14 @@ function initializeChart() {
             },
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Oil Volume Trends'
+                },
+                legend: {
+                    display: true,
+                    position: 'top'
                 }
+                
             }
         }
     });

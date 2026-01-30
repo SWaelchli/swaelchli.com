@@ -4,7 +4,7 @@ date: 2026-01-28
 draft: false
 description: "Dynamic simulation for overhead rundown tanks in rotating equipment systems."
 tags: ["API", "Engineering", "Coding"]
-wide: false
+#wide: false
 ---
 
 This tool simulates the oil flow dynamics of an API 614 overhead tank system. 

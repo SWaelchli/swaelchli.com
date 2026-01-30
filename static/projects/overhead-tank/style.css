@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem; 
+    border-radius: 4px;  /* Sharper corners for a technical look */
 }
 
 .vertical-stack {
@@ -20,18 +21,14 @@
 
 /* 1. PANEL STYLING */
 .controls-panel, .process-data-panel, .simulation-area > div {
-    background: #fdfcf8; /* Light paper/parchment background */
     padding: 1.25rem;    /* Slightly reduced padding for compactness */
+    border:2px solid rgba(158, 104, 81, 0.2);
     border-radius: 4px;  /* Sharper corners for a technical look */
-    border: 1px solid #d1c7ac; /* Muted paper-tone border */
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 
 .controls-panel h2, .process-data-panel h2 {
     font-size: 1rem;
     margin: 0 0 1rem 0;
-    color: #222;
-    border-bottom: 2px solid #9e6851; 
     padding-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -55,12 +52,12 @@
     margin-bottom: 1rem;
 }
 
+/* Description of the imput files. eg. "Oil Density (kg/m³)" */
 .field label {
     display: block;
-    font-size: 0.8rem; /* Slightly smaller for compactness */
+    font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 2px;
-    color: #555;
 }
 
 /* The "Pop": Stronger border and technical font */
@@ -73,13 +70,12 @@
     font-family: 'Courier New', monospace;
     font-weight: 700;
     font-size: 0.95rem;
-    color: #2c3e50;
+    color: #502e2c;
     transition: all 0.2s ease;
 }
 
 /* Focus state for tactical feedback */
 .field input[type="number"]:focus {
-    outline: none;
     border-color: #9e6851; 
     background-color: #fffaf0;
     box-shadow: 0 0 4px rgba(158, 104, 81, 0.2);

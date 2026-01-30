@@ -3,59 +3,54 @@
    ============================================================ */
 
 #api-simulation-wrapper {
-    all: revert;
     max-width: 100%;
     margin: 2rem auto;
-    font-family: inherit;
     display: flex;
     flex-direction: column;
     gap: 1.5rem; 
     border-radius: 4px;  /* Sharper corners for a technical look */
 }
 
-.vertical-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
 
 /* 1. PANEL STYLING */
 .controls-panel, .process-data-panel, .simulation-area > div {
+    display: block!important;
     padding: 1.25rem;    /* Slightly reduced padding for compactness */
-    border:2px solid rgba(158, 104, 81, 0.2);
-    border-radius: 4px;  /* Sharper corners for a technical look */
+    box-sizing: border-box;
 }
 
-.controls-panel h2, .process-data-panel h2 {
-    font-size: 1rem;
-    margin: 0 0 1rem 0;
+h2 {
+    font-size: 1.5rem!important;
     padding-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+h3 {
+    font-size: 1.2rem!important;
+    padding-bottom: 4px;
+}
+
+
 /* 2. COMPACT INPUT GRID & TACTILE "POP" */
 .input-grid {
+    grid-template-columns: repeat(3, 1fr); 
+    font-size: 1rem!important;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    column-gap: 1.5rem;
-    row-gap: 0.75rem; 
-    margin-bottom: 1.25rem;
+    border-top: 2px solid #9e6851!important;
 }
 
 .slider-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-    margin-bottom: 1rem;
+    border-top: 2px solid #9e6851!important;
+    font-size: 1rem!important;
 }
 
 /* Description of the imput files. eg. "Oil Density (kg/m³)" */
 .field label {
     display: block;
-    font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 2px;
 }
@@ -63,27 +58,16 @@
 /* The "Pop": Stronger border and technical font */
 .field input[type="number"] {
     width: 100%;
-    padding: 4px 8px;
-    background-color: #ffffff;
-    border: 2px solid #e0d9c5; 
-    border-radius: 3px;
-    font-family: 'Courier New', monospace;
+    padding: 4px 4px!important;;
     font-weight: 700;
-    font-size: 0.95rem;
-    color: #502e2c;
     transition: all 0.2s ease;
 }
 
 /* Focus state for tactical feedback */
-.field input[type="number"]:focus {
-    border-color: #9e6851; 
-    background-color: #fffaf0;
-    box-shadow: 0 0 4px rgba(158, 104, 81, 0.2);
-}
 
 .field input[type="range"] {
     width: 100%;
-    accent-color: #9e6851;
+    accent-color: #9e6851!important;
     cursor: pointer;
 }
 
@@ -98,21 +82,20 @@
     flex: 1;
     padding: 8px;
     border: 2px solid transparent;
-    border-radius: 4px;
-    font-weight: 700;
+    border-radius: 10px!important;
+    font-weight: 700!important;
     font-size: 0.9rem;
     cursor: pointer;
     text-transform: uppercase;
     transition: all 0.2s;
 }
 
-.btn-start { background: #00b894; color: white; }
-.btn-stop  { background: #d63031; color: white; }
+.btn-start { background: #00b894!important; color: white; }
+.btn-stop  { background: #d63031!important; color: white; }
 /* Reset button uses the paper theme border style */
 .btn-reset { 
-    background: #fdfcf8; 
+    background: #e7bc0e!important; 
     color: #444; 
-    border-color: #d1c7ac; 
 }
 
 .btn-start:hover { filter: brightness(1.1); }
@@ -129,8 +112,8 @@
 .canvas-wrapper, .chart-wrapper {
     display: flex;
     justify-content: center;
-    background: white;
-    border: 1px solid #d1c7ac;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
 }
 
 canvas {
@@ -144,15 +127,16 @@ canvas {
     justify-content: space-between;
     padding: 4px 0; 
     border-bottom: 1px solid #f1f2f6;
-    font-size: 0.85rem;
+    font-size: 1rem;
     margin: 0;
+
 }
 
 .readout-grid span span {
     color: #d63031;
     font-weight: bold;
     font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .timer { color: #0984e3 !important; }

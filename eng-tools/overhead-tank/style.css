@@ -25,17 +25,63 @@
     background-color: transparent; /* Make sure the background is transparent */
 }
 
-#oilLevelChart {
-    position: absolute; /* Position relative to .simulation-area */
-    /* Adjust these values to position the graph as desired */
-    top: 460px;   /* Example: 100px from the top of .simulation-area */
-    left: 000px;  /* Example: 100px from the left of .simulation-area */
-    width: 400px; /* Match the width set in index.html */
-    height: 250px; /* Match the height set in index.html */
-    z-index: 2; /* Ensure it's on top of tankCanvas */
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
-    border: 1px solid #ccc; /* Add a border for the graph area */
+
+.charts-container {
+    position: absolute;
+    top: 460px; /* Adjust as needed */
+    left: 0;
+    width: 580px; /* Adjust based on desired layout */
+    /* Removed grid properties */
+    gap: 10px; /* Space between charts */
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex; /* Use flexbox for chart controls and wrapper */
+    flex-direction: column; /* Stack controls above charts */
 }
+
+.chart-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.chart-button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.chart-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.chart-canvas-wrapper {
+    position: relative; /* To allow absolute positioning of charts if needed */
+    width: 100%;
+    height: 300px; /* Set a fixed height for the chart area */
+}
+
+.chart-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.chart-canvas.hidden {
+    display: none; /* Hide non-selected charts */
+}
+
 
 
 
@@ -44,7 +90,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Fixed width for control panels */
+    width: 400px; /* Fixed width for control panels */
     flex-shrink: 0; /* Prevents shrinking */
 }
 
@@ -57,11 +103,30 @@
 }
 
 .control-group {
+    display: inline-table;
+    position: relative;
+    float: left;
+    margin-right: 20px;
     margin-bottom: 20px;
+
 }
 
+.control-button {
+        display: flex;
+        border: none; 
+             
+
+}
+
+.control-button button {
+    background-color: #007bff;
+        
+}
+
+
+
 .control-group h3 {
-    color: #555;
+    color: #000000;
     margin-bottom: 10px;
 }
 
@@ -110,10 +175,6 @@ canvas {
     color: #007bff;
 }
 
-.process-data-panel .button {
-    display: block;
-    width: calc(100% - 30px); /* Adjust for padding */
-    text-align: center;
-    margin-top: 0px;
+.fixed-properties-input {
+    width: 50%;
 }
-

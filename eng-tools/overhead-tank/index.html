@@ -19,8 +19,15 @@
         <div class="controls-panel">
             <h2>Simulation Controls</h2>
 
+            <div class="control-button">   
+                <button id="StartButton" class="button">Start Calculation</button>
+                <button id="StopButton" class="button">Stop Calculation</button>
+                <button id="ResetButton" class="button">Reset Simulation</button>
+            </div>
+
             <div class="control-group">
                 <h3>Fixed Properties</h3>
+                
                 <label for="OilDensityKGM3"> Oil Density (kg/m3):</label>
                 <input type="number" id="OilDensityKGM3" min="1" value="860" step="1">
                 
@@ -47,23 +54,27 @@
                 <label for="OilHeaderPressure">Pressure (barg):</label>
                 <input type="range" id="OilHeaderPressure" min="0" max="5" value="2" step="0.1">
                 <span id="displayOilHeaderPressure">2.0</span>
-                <br>
                 <label for="OrificeDiameter">Orifice Diameter (mm):</label>
                 <input type="range" id="OrificeDiameter" min="0" max="25" value="5" step="0.1">
                 <span id="displayOrificeDiameter">5.0</span>
             </div>
 
-            <div class="container">   
-                <button id="StartButton" class="button">Start Calculation</button>
-                <button id="StopButton" class="button">Stop Calculation</button>
-                <button id="ResetButton" class="button">Reset Simulation</button>
-            </div>
+            
 
         </div>
 
         <div class="simulation-area">
             <canvas id="tankCanvas" width="600" height="450"></canvas>
-            <canvas id="oilLevelChart" width="400" height="250"></canvas> 
+            <div class="charts-container">
+                <div class="chart-controls">
+                    <button id="showOilLevelChart" class="button chart-button active">Oil Level</button>
+                    <button id="showPressureChart" class="button chart-button">Pressure</button>
+                    </div>
+                <div class="chart-canvas-wrapper">
+                    <canvas id="oilLevelChart" class="chart-canvas"></canvas>
+                    <canvas id="PressureChart" class="chart-canvas hidden"></canvas>
+                    </div>
+            </div>
         </div>
 
         <div class="process-data-panel">
@@ -94,7 +105,6 @@
 
     <script src="drawing.js"></script>
     <script src="overhead-tank.js"></script>
-
    
 </body>
 </html>

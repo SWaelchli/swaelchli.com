@@ -59,6 +59,16 @@ const fixedPropertyInputs = [
 ];
 
 
+// Chart selection buttons
+const showOilLevelChartBtn = document.getElementById('showOilLevelChart');
+const showPressureChartBtn = document.getElementById('showPressureChart');
+// Add references for chart3 and chart4 buttons if you add them back
+const oilLevelChartCanvas = document.getElementById('oilLevelChart');
+const PressureChartCanvas = document.getElementById('PressureChart');
+// const chart3Canvas = document.getElementById('chart3');
+// const chart4Canvas = document.getElementById('chart4');
+
+
 // 2. Initialize your JavaScript variable
 
 //General variables
@@ -79,15 +89,43 @@ let totalSimulationDuration = 60 * 60; // Total duration of the simulation in se
 
 //  Chart variables
 let oilLevelChart; // Variable to hold the Chart.js instance
-let chartData = {
+let PressureChart; // Variable to hold the Chart.js instance
+
+let oilLevelChartData = {
     labels: [], // Stores time values
     datasets: [{
         label: 'Stored Oil (%)',
         data: [],
+        borderColor: 'rgba(138, 86, 62, 1)', // Red
+        backgroundColor: 'rgba(66, 48, 32, 0.56)',
+        tension: 0.1,
+        fill: true
+    }]
+};
+
+let PressureChartData = {
+    labels: [], // Stores time values
+    datasets: [{
+        label: 'Header Pressure (barg)',
+        data: [],
         borderColor: 'rgb(236, 40, 40)', // Red
         backgroundColor: 'rgba(250, 116, 116, 0.2)',
         tension: 0.1,
-        fill: true
+        fill: false
+    },{
+        label: 'Hydrostatic Pressure (barg)',
+        data: [],
+        borderColor: 'rgb(236, 40, 40)', // Red
+        backgroundColor: 'rgba(250, 116, 116, 0.2)',
+        tension: 0.1,
+        fill: false
+    },{
+        label: 'Machine Oil Pressure (barg)',
+        data: [],
+        borderColor: 'rgb(236, 40, 40)', // Red
+        backgroundColor: 'rgba(250, 116, 116, 0.2)',
+        tension: 0.1,
+        fill: false
     }]
 };
 
@@ -138,26 +176,28 @@ CalulateBoundryVarialbles()
 
 // Function to initialize the chart
 function initializeChart() {
-    const ctx = document.getElementById('oilLevelChart').getContext('2d');
-    oilLevelChart = new Chart(ctx, {
+    const ctx1 = oilLevelChartCanvas.getContext('2d');
+    oilLevelChart = new Chart(ctx1, {
         type: 'line',
-        data: chartData,
+        data: oilLevelChartData,
         options: {
             responsive: true,
             maintainAspectRatio: false, // Important for custom sizing
+
             animation: {
                 duration: 0 // Disable animation for smoother updates
             },
             scales: {
                 x: {
                     title: {
-                        display: true,
-                        text: 'Time (s)'
+                        display: false,
+                        text: 'Time (s)',
+                        align: 'start'
                     }
                 },
                 y: {
                     title: {
-                        display: true,
+                        display: false,
                         text: 'Volume (%)'
                     },
                     min: 0,
@@ -166,16 +206,63 @@ function initializeChart() {
             },
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Oil Volume Trends'
+                },
+                legend: {
+                    display: true,
+                    position: 'top'
                 }
+                
+            }
+        }
+    });
+
+    const ctx2 = PressureChartCanvas.getContext('2d');
+    PressureChart = new Chart(ctx2, {
+        type: 'line',
+        data: PressureChartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Important for custom sizing
+
+            animation: {
+                duration: 0 // Disable animation for smoother updates
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: false,
+                        text: 'Time (s)',
+                        align: 'start'
+                    }
+                },
+                y: {
+                    title: {
+                        display: false,
+                        text: 'Pressure (barg)'
+                    },
+                    min: 0,
+                    max: 5 // 0 to 5 barg, same as slider
+                }
+            },
+            plugins: {
+                title: {
+                    display: false,
+                    text: 'Pressure Trends'
+                },
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+                
             }
         }
     });
 }
 
 // Call initializeChart when the script loads
-initializeChart();
+//initializeChart();
 
 
 // 3. Add an event listener to the sliders
@@ -498,6 +585,57 @@ function updateUI() {
 
 }
 
+ function ensureChartInitialized(chartType) {
+    if (chartType === 'oilLevelChart') {
+        // If the chart instance already exists, destroy it first
+        if (oilLevelChart) {
+            oilLevelChart.destroy();
+        }
+        // Create a new chart instance
+        const ctx1 = oilLevelChartCanvas.getContext('2d');
+        oilLevelChart = new Chart(ctx1, {
+            type: 'line',
+            data: oilLevelChartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 0 },
+                scales: {
+                    x: { title: { display: false, text: 'Time (s)', align: 'start' } },
+                    y: { title: { display: false, text: 'Volume (%)' }, min: 0, max: 100 }
+                },
+                plugins: {
+                    title: { display: false, text: 'Oil Volume Trends' },
+                    legend: { display: true, position: 'top' }
+                }
+            }
+        });
+    } else if (chartType === 'PressureChart') {
+        // If the chart instance already exists, destroy it first
+        if (PressureChart) {
+            PressureChart.destroy();
+        }
+        // Create a new chart instance
+        const ctx2 = PressureChartCanvas.getContext('2d');
+        PressureChart = new Chart(ctx2, {
+            type: 'line',
+            data: PressureChartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 0 },
+                scales: {
+                    x: { title: { display: false, text: 'Time (s)', align: 'start' } },
+                    y: { title: { display: false, text: 'Pressure (barg)' }, min: 0, max: 5 }
+                },
+                plugins: {
+                    title: { display: false, text: 'Pressure Trends' },
+                    legend: { display: true, position: 'top' }
+                }
+            }
+        });
+    }
+}
 
 // 6. Simulation Loop
 
@@ -557,9 +695,15 @@ function runSimulationStep() {
         currentTime += timeStep;
 
         // Add data to chart
-        chartData.labels.push(currentTime.toFixed(1)); // Store time
-        chartData.datasets[0].data.push((StoredOilPercentage).toFixed(2)); // Store tank percentage
+        oilLevelChartData.labels.push(currentTime.toFixed(1)); // Store time
+        oilLevelChartData.datasets[0].data.push((StoredOilPercentage).toFixed(2)); // Store tank percentage
         oilLevelChart.update(); // Update the chart to show new data
+
+        PressureChartData.labels.push(currentTime.toFixed(1)); // Store time
+        PressureChartData.datasets[0].data.push((OilHeaderPressure).toFixed(2)); // Store headerpressure
+        PressureChartData.datasets[1].data.push((hydrostaticPressureBARG).toFixed(2)); // Store hydrostatic pressure
+        PressureChartData.datasets[2].data.push((MachineOilPressure).toFixed(2)); // Store Machine Oil Pressure
+        PressureChart.update(); // Update the chart to show new data
 
         // 5. Update UI (e.g., display TankOilVolume, update canvas)
         updateUI();
@@ -601,9 +745,15 @@ function resetSimulation() {
 
   
     // Clear chart data on reset
-    chartData.labels = [];
-    chartData.datasets[0].data = [];
+    oilLevelChartData.labels = [];
+    oilLevelChartData.datasets[0].data = [];
     oilLevelChart.update(); // Update chart to reflect empty data
+
+    PressureChartData.labels = []; // Clear labels for PressureChart
+    PressureChartData.datasets[0].data = []; // Clear data for Header Pressure
+    PressureChartData.datasets[1].data = []; // Clear data for Hydrostatic Pressure
+    PressureChartData.datasets[2].data = []; // Clear data for Machine Oil Pressure
+    PressureChart.update(); // Update PressureChart
 
     //  Enable fixed property inputs ---
     setFixedPropertyInputsEnabled(true);
@@ -647,5 +797,48 @@ const ResetButton = document.getElementById('ResetButton');
 ResetButton.addEventListener('click', function() {
     resetSimulation(); 
 });
+
+// New Chart Selection Logic
+const chartButtons = document.querySelectorAll('.chart-button');
+const chartCanvases = document.querySelectorAll('.chart-canvas');
+
+function showChart(chartId) {
+    chartCanvases.forEach(canvas => {
+        if (canvas.id === chartId) {
+            canvas.classList.remove('hidden');
+        } else {
+            canvas.classList.add('hidden');
+        }
+    });
+
+    chartButtons.forEach(button => {
+        if (button.id === `show${chartId.charAt(0).toUpperCase() + chartId.slice(1)}`) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+
+    // This will now destroy the old chart and create a new one.
+    ensureChartInitialized(chartId);
+}
+
+// Add event listeners to chart selection buttons
+showOilLevelChartBtn.addEventListener('click', () => showChart('oilLevelChart'));
+showPressureChartBtn.addEventListener('click', () => showChart('PressureChart'));
+
+// Initialize the correct chart to be visible on load and its button as active
+// This will now also initialize the oilLevelChart via ensureChartInitialized
+showChart('oilLevelChart');
+
+const chartControls = document.querySelector('.chart-controls');
+if (!chartControls) return;
+
+// Maps button IDs to their corresponding canvas IDs - This map is not actually used by your showChart function
+// as it stands, but it's good to have if you refactor.
+const buttonToCanvasMap = {
+    'showOilLevelChart': 'oilLevelChart',
+    'showPressureChart': 'PressureChart'
+};
 
 });

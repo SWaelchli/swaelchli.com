@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Flow Simulation</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Additional styles specific to layout not covered by style.css */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .control-group label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            border-radius: 4px;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+        }
+
+        .control-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .control-buttons .button {
+            flex-grow: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        #simulationCanvas {
+            border: 2px solid #ccc;
+            background-color: white; /* Ensure canvas background is white for no water */
+            display: block; /* Remove extra space below canvas */
+            margin: 20px auto; /* Center the canvas */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%; /* Make canvas responsive within its container */
+            height: auto;
+        }
+
+        /* Adjust footer position for the simulation page to avoid overlap */
+        body {
+            position: relative; /* Needed for footer positioning */
+            padding-bottom: 80px; /* Space for the fixed footer */
+        }
+        footer {
+            position: absolute; /* Changed to absolute to stick to bottom of content if short */
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Water Flow Simulation</h1>
+        <p>Interact with sources, drains, and obstructions!</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Simulation Area</h2>
+            <canvas id="simulationCanvas"></canvas>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="simulationSpeed">Simulation Speed:</label>
+                    <input type="range" id="simulationSpeed" min="1" max="100" value="50">
+                    <span id="speedValue">50 ms/update</span>
+                </div>
+
+                <div class="control-group">
+                    <label>Placement Mode:</label>
+                    <div class="control-buttons">
+                        <button id="addSourceBtn" class="button">Add Source</button>
+                        <button id="removeSourceBtn" class="button">Remove Source</button>
+                        <button id="addDrainBtn" class="button">Add Drain</button>
+                        <button id="removeDrainBtn" class="button">Remove Drain</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Obstruction Mode:</label>
+                    <div class="control-buttons">
+                        <button id="drawObstructionBtn" class="button">Draw Obstruction</button>
+                        <button id="eraseObstructionBtn" class="button">Erase Obstruction</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="sourceRate">Source Rate:</label>
+                    <input type="range" id="sourceRate" min="0.1" max="5" value="1" step="0.1">
+                    <span id="sourceRateValue">1.0 density/tick</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="drainRate">Drain Rate:</label>
+                    <input type="range" id="drainRate" min="0.1" max="5" value="1" step="0.1">
+                    <span id="drainRateValue">1.0 density/tick</span>
+                </div>
+
+                <div class="control-group">
+                    <label>Simulation Control:</label>
+                    <div class="control-buttons">
+                        <button id="startPauseBtn" class="button">Pause</button>
+                        <button id="resetBtn" class="button">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Water Flow Simulation. All rights reserved.</p>
+    </footer>
+
+    <script src="simulation.js"></script>
+</body>
+</html>

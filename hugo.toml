@@ -1,0 +1,43 @@
+baseURL = 'https://swaelchli.com/'
+languageCode = 'en-us'
+title = 'Sebastian Waelchli | Engineering, Tech & Bake'
+theme = 'paper'
+
+
+[params]
+  description = "Mechanical Engineering, Turbomachinery, and Homelab Projects"
+  linkedin = 'sebastian-wälchli-405603227' 
+  github = "SWaelchli"
+
+  avatar = 'https://swaelchli.com/pictures/portrait.jpg'
+  name = 'Sebastian Waelchli'
+  bio = 'Engineer | Tech Enthusiast | Problem Solver'
+
+  mainSections = ["posts", "projects"]
+
+
+[menu]
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 20
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[markup]
+  [markup.highlight]
+    style = "monokai" # Great for technical code snippets
+    lineNos = true
+  [markup.goldmark.extensions.passthrough]
+    enable = true
+    [markup.goldmark.extensions.passthrough.delimiters]
+      inline = [['$', '$']]
+      block = [['$$', '$$']]
+  [markup.goldmark.renderer]
+  unsafe = true # This allows <script> and <style> tags in your .md files

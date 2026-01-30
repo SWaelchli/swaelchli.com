@@ -1,0 +1,13 @@
+<figure style="float: {{ .Get "align" | default "left" }}; 
+               margin: 0 {{ if eq (.Get "align") "right" }}0{{ else }}20px{{ end }} 10px {{ if eq (.Get "align") "right" }}20px{{ else }}0{{ end }}; 
+               width: {{ .Get "width" | default "300px" }}; 
+               max-width: 100%;">
+    <img src="{{ .Get "src" | relURL }}" 
+         alt="{{ .Get "alt" }}" 
+         style="width: 100%; height: auto; border-radius: 8px; display: block;">
+    {{ with .Get "caption" }}
+        <figcaption style="text-align: center; margin-top: 8px;">
+            {{ . | markdownify }}
+        </figcaption>
+    {{ end }}
+</figure>

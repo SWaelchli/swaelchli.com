@@ -1,0 +1,87 @@
+{{ $projectPath := "/projects/overhead-tank" }}
+
+<div id="api-simulation-wrapper" class="not-prose">
+    <link rel="stylesheet" href="{{ $projectPath }}/style.css?v={{ now.Unix }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="vertical-stack">
+        <aside class="controls-panel">
+            <h2>Simulation Controls</h2>
+            
+            <div class="properties-grid-container">
+                <h3>Fixed Properties</h3>
+                <div class="input-grid">
+                    <div class="field">
+                        <label for="OilDensityKGM3">Oil Density (kg/m³)</label>
+                        <input type="number" id="OilDensityKGM3" value="860">
+                    </div>
+                    <div class="field">
+                        <label for="OilViscosity">Kinematic Viscosity (mm²/s)</label>
+                        <input type="number" id="OilViscosity" value="32">
+                    </div>
+                    <div class="field">
+                        <label for="SupplyLineInnerDiameter">Line ID (mm)</label>
+                        <input type="number" id="SupplyLineInnerDiameter" value="50">
+                    </div>
+                    <div class="field">
+                        <label for="TankVolume">Tank Volume (l)</label>
+                        <input type="number" id="TankVolume" value="300">
+                    </div>
+                    <div class="field">
+                        <label for="TankElevationM">Elevation (m)</label>
+                        <input type="number" id="TankElevationM" value="6">
+                    </div>
+                    <div class="field">
+                        <label for="NormOilConsumptionLMIN">Normal Flow (l/min)</label>
+                        <input type="number" id="NormOilConsumptionLMIN" value="300">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-section">
+                <h3>Oil Header</h3>
+                <div class="slider-grid">
+                    <div class="field">
+                        <label for="OilHeaderPressure">Pressure: <span id="displayOilHeaderPressure">2.0</span> barg</label>
+                        <input type="range" id="OilHeaderPressure" min="0" max="5" value="2" step="0.1">
+                    </div>
+                    <div class="field">
+                        <label for="OrificeDiameter">Orifice: <span id="displayOrificeDiameter">5.0</span> mm</label>
+                        <input type="range" id="OrificeDiameter" min="0" max="25" value="5" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-row">   
+                <button id="StartButton" class="button btn-start">Start</button>
+                <button id="StopButton" class="button btn-stop">Stop</button>
+                <button id="ResetButton" class="button btn-reset">Reset</button>
+            </div>
+        </aside>
+
+        <section class="simulation-area">
+            <div class="canvas-wrapper">
+                <canvas id="tankCanvas" width="600" height="450"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="oilLevelChart" width="600" height="300"></canvas>
+            </div>
+        </section>
+
+        <aside class="process-data-panel">
+            <h2>Process Data</h2>
+            <div class="readout-grid">
+                <p>Pressure: <span><span id="displayOilHeaderPressurePro">2.0</span> barg</span></p>
+                <p>Flow to Tank: <span><span id="displayflowRateLMINPro">0.0</span> l/min</span></p>
+                <p>Consumption: <span><span id="displayActOilConsumptionLMINPro">0.0</span> l/min</span></p>
+                <p>Line Oil: <span><span id="displaySupplyLineOilVolumePro">0.0</span> %</span></p>
+                <p>Tank Oil: <span><span id="displayTankOilVolumePro">0.0</span> %</span></p>
+                <hr>
+                <p>Time passed: <span id="displaycurrentTimePro" class="timer">0.0</span> s</p>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="{{ $projectPath }}/drawing.js"></script>
+<script src="{{ $projectPath }}/overhead-tank.js"></script>

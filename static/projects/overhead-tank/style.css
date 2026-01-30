@@ -1,0 +1,162 @@
+/* ============================================================
+   API 614 RUNDOWN TANK SIMULATION - VERTICAL STACK
+   ============================================================ */
+
+#api-simulation-wrapper {
+    all: revert;
+    max-width: 100%;
+    margin: 2rem auto;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; 
+}
+
+.vertical-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* 1. PANEL STYLING */
+.controls-panel, .process-data-panel, .simulation-area > div {
+    background: #fdfcf8; /* Light paper/parchment background */
+    padding: 1.25rem;    /* Slightly reduced padding for compactness */
+    border-radius: 4px;  /* Sharper corners for a technical look */
+    border: 1px solid #d1c7ac; /* Muted paper-tone border */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.controls-panel h2, .process-data-panel h2 {
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    color: #222;
+    border-bottom: 2px solid #9e6851; 
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 2. COMPACT INPUT GRID & TACTILE "POP" */
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    column-gap: 1.5rem;
+    row-gap: 0.75rem; 
+    margin-bottom: 1.25rem;
+}
+
+.slider-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.field label {
+    display: block;
+    font-size: 0.8rem; /* Slightly smaller for compactness */
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #555;
+}
+
+/* The "Pop": Stronger border and technical font */
+.field input[type="number"] {
+    width: 100%;
+    padding: 4px 8px;
+    background-color: #ffffff;
+    border: 2px solid #e0d9c5; 
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    transition: all 0.2s ease;
+}
+
+/* Focus state for tactical feedback */
+.field input[type="number"]:focus {
+    outline: none;
+    border-color: #9e6851; 
+    background-color: #fffaf0;
+    box-shadow: 0 0 4px rgba(158, 104, 81, 0.2);
+}
+
+.field input[type="range"] {
+    width: 100%;
+    accent-color: #9e6851;
+    cursor: pointer;
+}
+
+/* 3. BUTTONS - TACTILE THEME */
+.button-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 0.5rem;
+}
+
+.button {
+    flex: 1;
+    padding: 8px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.btn-start { background: #00b894; color: white; }
+.btn-stop  { background: #d63031; color: white; }
+/* Reset button uses the paper theme border style */
+.btn-reset { 
+    background: #fdfcf8; 
+    color: #444; 
+    border-color: #d1c7ac; 
+}
+
+.btn-start:hover { filter: brightness(1.1); }
+.btn-stop:hover  { filter: brightness(1.1); }
+.btn-reset:hover { background: #eeeeee; }
+
+/* 4. SIMULATION AREA */
+.simulation-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.canvas-wrapper, .chart-wrapper {
+    display: flex;
+    justify-content: center;
+    background: white;
+    border: 1px solid #d1c7ac;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* 5. PROCESS DATA READOUT */
+.readout-grid p {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0; 
+    border-bottom: 1px solid #f1f2f6;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.readout-grid span span {
+    color: #d63031;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+}
+
+.timer { color: #0984e3 !important; }

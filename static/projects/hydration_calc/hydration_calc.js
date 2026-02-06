@@ -33,6 +33,19 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('res_Flour').textContent = Math.max(0, addedFlour).toFixed(1);
         document.getElementById('res_Water').textContent = Math.max(0, addedWater).toFixed(1);
         document.getElementById('res_Salt').textContent = Math.max(0, salt).toFixed(1);
+
+
+        // 4. Update Image based on closest hydration match
+        const availableSteps = [68, 77, 86, 95, 105];
+        const currentHydrPct = parseFloat(document.getElementById('DesiredHydration_%').value) || 0;
+
+        // Find the number in availableSteps closest to currentHydrPct
+        const closest = availableSteps.reduce((prev, curr) => {
+            return (Math.abs(curr - currentHydrPct) < Math.abs(prev - currentHydrPct) ? curr : prev);
+        });
+
+        const imgElement = document.getElementById('hydration_preview');
+        imgElement.src = `/projects/hydration_calc/${closest}_hydr.png`;
     }
 
     // Add listeners to all inputs

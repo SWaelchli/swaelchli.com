@@ -14,6 +14,8 @@ theme = 'paper'
   bio = 'Engineer | Tech Enthusiast | Problem Solver'
 
   mainSections = ["posts", "projects"]
+  math = true
+  customCSS = ["css/custom.css"]
 
 
 [menu]
@@ -32,7 +34,7 @@ theme = 'paper'
 
 [markup]
   [markup.highlight]
-    style = "monokai" # Great for technical code snippets
+    style = "monokai" # Great for technical code snippets    
     lineNos = true
   [markup.goldmark.extensions.passthrough]
     enable = true

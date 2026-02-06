@@ -2,10 +2,27 @@
     grid-template-columns: repeat(2, 1fr); 
     display: grid;
     padding: 10px!important;
-    border: 2px solid!important;
+    border: 1px solid!important;
+    box-shadow: #3333333a 5px 5px 5px!important;
     border-radius: 10px!important;
     width: fit-content;
 
+}
+
+.output-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    display: grid;
+    padding: 10px!important;
+
+
+}
+
+.ingredient-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    display: grid;
+    padding: 10px!important;
+    width: fit-content;
+;
 }
 
 .field {
@@ -18,16 +35,19 @@ label.text{
     width: 220px;  
 }
 
+#hydration_preview{
+    width: 300px;
+    border-radius: 10px!important;
+}
 
-body.dark input{
-    width: 100px;  
-    text-align: center;
-    background-color: aqua!important;
+#res_Salt, #res_Water, #res_Flour, #res_Starter{
+    margin-left: 20px!important;
+
 }
 
 
-/*  INPUT FILEDS*/
 
+/*  INPUT FILEDS*/
 
 
 /* Base Style and Light Mode */

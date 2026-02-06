@@ -11,7 +11,7 @@
     </div>
     <div class="field">
         <label class="text" for="DesiredHydration_%">Desired Hydration (%)</label>
-        <input type="number" id="DesiredHydration_%" value="80">     
+        <input type="number" id="DesiredHydration_%" value="86">     
     </div>
     <div class="field">
         <label class="text" for="StarterWeight_g">Starter Weight (g)</label>
@@ -26,13 +26,27 @@
 
 <script src="{{ $projectPath }}/hydration_calc.js"></script>
 
-<h2>Ingredients</h2>
+
 
 <div class="output-grid">
-    <p>Starter <span><span id="res_Starter">0.0</span> g</span></p>
-    <p>Flour <span><span id="res_Flour">0.0</span> g</span></p>
-    <p>Water <span><span id="res_Water">0.0</span> ml</span></p>
-    <p>Salt <span><span id="res_Salt">0.0</span> g</span></p>
+    <div class="ingredients">
+        <h2>Ingredients</h2>
+
+        <div class="ingredient-grid">
+        <p>• Starter:</p>            <p><span><span id="res_Starter">0.0</span> g</span></p>
+        <p>• Flour:</p>              <p><span><span id="res_Flour">0.0</span> g</span></p>
+        <p>• Water:</p>              <p> <span><span id="res_Water">0.0</span> ml</span></p>
+        <p>• Salt:</p>               <p><span><span id="res_Salt">0.0</span> g</span></p>
+        </div>
+    </div>
+
+    <div class="example_pictures">
+        <h2>Example Pictures</h2>
+        Clostest example to selected hydration
+        <img id="hydration_preview" src="{{ $projectPath }}/86_hydr.png" alt="Hydration preview" style="max-width: 100%;">
+    </div>
+    
+
 </div>
 
 

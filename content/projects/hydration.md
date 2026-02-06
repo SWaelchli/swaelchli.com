@@ -2,76 +2,70 @@
 title: "Dough Hydration Calculator"
 date: 2026-02-06
 draft: false
-description: "A little tool to calulate the ingridients weight to achieve a certain hydration."
+description: "A little tool to calculate the ingredients weight to achieve a certain hydration."
 tags: ["Coding", "Baking"]
 #wide: false
 ---
 
-<!-- Write a introduction here -->
+<!-- Write an introduction here -->
 
-This is a small tool that helps me calulating the ingredients for my sourdough bread based on the starter that I have at hand and the desired hydration of the dough.
+This is a small tool that helps me calculate the ingredients for my sourdough bread based on the starter that I have at hand and the desired hydration of the dough.
 
 
 <!-- Tool / Project here -->
 
+
+***
 {{< hydration_calc >}}
+***
 
 ### How it works
 
-The tool works on a short javascript code that is doing simple arythmitics to calulate the ingredients.
--The tool is assuming a desired salt content of 2%.
+The tool works on a short JavaScript code that is doing simple arithmetic to calculate the ingredients.
 
-You can access the code on this website's [github repository] (https://github.com/SWaelchli/swaelchli.com/blob/master/layouts/shortcodes/overhead_tank.html)
++ The tool is assuming a desired salt content of 2%.
++ The tool is assuming a water loss of 15% during baking.
 
-### Calulations:
+
+
+You can access the code on this website's [GitHub repository](https://github.com/SWaelchli/swaelchli.com/tree/1d9c07dfa23858c2b1d42eed18e75abf222ae721/static/projects/hydration_calc)
+
+### Calculations:
 **Definitions**
 
 $$
-m_{\text{bread}} = \text{desired mass of bread} \; [\mathrm{g}]
-$$
-$$
-m_{\text{dough}} = \text{mass of dough} \; [\mathrm{g}]
-$$
-$$
-m_{\mathrm{NaCl}} = \text{mass of salt} \; [\mathrm{g}]
-$$
-$$
-m_{\text{flour}} = \text{mass of flour} \; [\mathrm{g}]
-$$
-$$
-m_{\mathrm{S}} = \text{mass of starter} \; [\mathrm{g}]
-$$
-$$
-h = \text{desired hydration of dough} \; [\%]
-$$
-$$
-h_{\mathrm{S}} = \text{hydration of starter} \; [\%]
+\begin{aligned}
+& m_{\text{Bread}} = \text{desired mass of bread} \; [\mathrm{g}]
+\\[1em]
+& m_{\text{Dough}} = \text{mass of dough} \; [\mathrm{g}]
+\\[1em]
+& m_{\mathrm{NaCl}} = \text{mass of salt} \; [\mathrm{g}]
+\\[1em]
+& m_{\text{Flour}} = \text{mass of flour} \; [\mathrm{g}]
+\\[1em]
+& m_{\mathrm{S}} = \text{mass of starter} \; [\mathrm{g}]
+\\[1em]
+& h = \text{desired hydration of dough} \; [\%]
+\\[1em]
+& h_{\mathrm{S}} = \text{hydration of starter} \; [\%]
+\end{aligned}
 $$
 
 **Formulas**
 
 
 $$
-m_{Dough} =  m_S + m_F + m_W + m_{NaCl}
-$$
-
-$$
-m_{Dough} = \frac {m_{Bread}}  {0.85}
-$$
-
-$$
-m_{Bread} = m_{Dough} \cdot 0.85
-$$
-
-$$
-m_{NaCl} = m_{Dough} \cdot 0.02
-$$
-
-
-$$
-m_{Flour} = \frac {m_{Dough}}  {1 + h + m_{NaCl}}  - \frac {m_S}  {1 + h_S}  
-$$
-
-$$
-m_{Water} =  {m_{Dough}} - \frac {m_{Dough}} {1 + h} 
+\begin{aligned}
+& m_{Dough} =  m_S + m_F + m_W + m_{NaCl}
+\\[1em]
+& m_{Dough} = \frac {m_{Bread}}  {0.85}
+\\[1em]
+& m_{Bread} = m_{Dough} \cdot 0.85
+\\[1em]
+& m_{NaCl} = m_{Dough} \cdot 0.02
+\\[1em]
+& m_{Flour} = \frac {m_{Dough}}  {1 + h + m_{NaCl}}  - \frac {m_S}  {1 + h_S}  
+\\[1em]
+&m_{Water} =  {m_{Dough}} - \frac {m_{Dough}} {1 + h} 
+\end{aligned}
 $$

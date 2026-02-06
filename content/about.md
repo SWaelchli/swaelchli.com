@@ -4,24 +4,25 @@ layout: "page"
 ---
 
 ## Sebastian Waelchli
-**Engineer | Tech Enthusiast | Problem Solver**
+**Mechanical Engineer | Tech Enthusiast | Hobby Baker**
 
 
-I am a Houston-based engineer with a background in Mechanical Engineering. I work in Project Management for rotating equipment used several industries ranging from traditional oil & gas applications to renewable technologies such as heatpumps.
+I am a Houston-based engineer with a background in Mechanical Engineering. I work in Project Management for rotating equipment that is used several industries ranging from traditional oil & gas applications to renewable technologies such as heatpumps.
 
 ### Technical Interests
-Beyond the world of mechanical engineering, I am a dedicated "homelabber." My digital workshop consists of:
+Beyond my professional world of mechanical engineering, I am a dedicated **homelabber**. This website is a result of this hobby. Everything you see here is hosted on my homeserver.
+
 * **Virtualization:** Managing services via Proxmox and Docker.
-* **Self-Hosting:** Running local instances of Jellyfin, Sonarr, Radarr, and managing networking with Caddy.
+* **Self-Hosting:** Running local instances of serveral applicaitons that help me in my daily life.
 * **Development:** Building custom tools and scripts, often shared on my GitHub.
 
 ### Projects & Philosophy
-This site serves as a central hub for my technical experiments. Whether it's a deep dive into engineering formulas or a guide on configuring a new Docker container, I believe in the "pure paper" philosophy: clean, readable, and focused on the content.
+This site serves as a central hub for my technical experiments. Whether it's a deep dive into engineering formulas or a guide on configuring a new Docker container. I also like to mix in some of my other interest such as baking.
 
 
 
 ### Beyond the Screen
-When I'm not optimizing a server or a turbine, you can find me:
+When I'm not optimizing a server (or fixing something I broke attempting it), you can also find me:
 
 {{< figure-wrap
 src="/pictures/about_picture_s.jpg" 

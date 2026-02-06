@@ -1,18 +1,24 @@
 ---
-title: "Sourdough Starter"
-date: 2026-01-30T16:22:28Z
+title: "How to make your own Sourdough Starter"
+date: 2026-02-01T16:22:28Z
 draft: true
 description: "A recipy to make your own sourdough starter"
 tags: ["Baking"]
 ---
-
-# Making a Sourdough Starter
 
 I just recently startet to get into baking.  After moving to Houston from Zurich more than 2 years ago, a craving for some fresh, crunchy, **delicous bread** became more and more apparent in me. That's why I decided to give baking a try and to make my own sour ough starter from scrach.
 
 I like to share with you how you can make your own starter.
 
 ## 1. How to start?
+
+{{< figure-wrap
+src="/pictures/2026-2-01_sourdough_starter/starter_in_jar.jpg"
+align="right"
+width="200px" 
+alt="Sourdough starter in jar" 
+caption="Sourdough starter in jar. 2 hours after feeding"
+>}}
 
 All you need is:
 - a container to store the sourdough starter. I personally use an old olive jar.

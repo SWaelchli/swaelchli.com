@@ -1,0 +1,54 @@
+.input-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    display: grid;
+    padding: 10px!important;
+    border: 2px solid!important;
+    border-radius: 10px!important;
+    width: fit-content;
+
+}
+
+.field {
+    grid-template-columns: repeat(3, 1fr); 
+    display: grid;
+    margin: 10px!important;
+}
+
+label.text{
+    width: 220px;  
+}
+
+
+body.dark input{
+    width: 100px;  
+    text-align: center;
+    background-color: aqua!important;
+}
+
+
+/*  INPUT FILEDS*/
+
+
+
+/* Base Style and Light Mode */
+input {
+    /* Base Style */
+    width: 100px;
+    text-align: center;
+    border: 1px solid #ccc!important;
+    border-radius: 5px!important;
+
+
+    /* Light Mode */
+    background-color: rgb(255, 255, 255) !important;
+}
+
+/* Dark Mode Override */
+
+html.dark input {
+    /* Change background to dark grey */
+    background-color: #333333 !important;
+    
+    /* Change border to match dark theme */
+    border: 1px solid #555;
+}

@@ -1,0 +1,39 @@
+{{ $projectPath := "/projects/hydration_calc" }}
+
+<link rel="stylesheet" href="{{ $projectPath }}/style.css?v={{ now.Unix }}">
+
+<h2>Input</h2>
+
+<div class="input-grid">
+    <div class="field">
+        <label class="text" for="DesiredWeight_g">Desired Bread Weight (g)</label>
+        <input type="number" id="DesiredWeight_g" value="1000">     
+    </div>
+    <div class="field">
+        <label class="text" for="DesiredHydration_%">Desired Hydration (%)</label>
+        <input type="number" id="DesiredHydration_%" value="80">     
+    </div>
+    <div class="field">
+        <label class="text" for="StarterWeight_g">Starter Weight (g)</label>
+        <input type="number" id="StarterWeight_g" value="100">
+    </div>
+        <div class="field">
+        <label class="text" for="StarterHydration_%">Starter Hydration (%)</label>
+        <input type="number" id="StarterHydration_%" value="100">     
+    </div>
+
+</div>
+
+<script src="{{ $projectPath }}/hydration_calc.js"></script>
+
+<h2>Ingredients</h2>
+
+<div class="output-grid">
+    <p>Starter <span><span id="res_Starter">0.0</span> g</span></p>
+    <p>Flour <span><span id="res_Flour">0.0</span> g</span></p>
+    <p>Water <span><span id="res_Water">0.0</span> ml</span></p>
+    <p>Salt <span><span id="res_Salt">0.0</span> g</span></p>
+</div>
+
+
+

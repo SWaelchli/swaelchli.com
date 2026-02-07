@@ -28,7 +28,7 @@ The tool works on a short JavaScript code that is doing simple arithmetic to cal
 
 
 
-You can access the code on this website's [GitHub repository](https://github.com/SWaelchli/swaelchli.com/tree/1d9c07dfa23858c2b1d42eed18e75abf222ae721/static/projects/hydration_calc)
+You can access the code on this website's [GitHub repository](https://github.com/SWaelchli/swaelchli.com/tree/master/static/projects/hydration_calc)
 
 ### Calculations:
 **Definitions**

@@ -1,5 +1,5 @@
 ---
-title: "Dough Hydration Calculator"
+title: "Sourdough Hydration Calculator"
 date: 2026-02-06
 draft: false
 description: "A little tool to calculate the ingredients weight to achieve a certain hydration."

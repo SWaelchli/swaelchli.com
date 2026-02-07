@@ -9,20 +9,50 @@
 
 }
 
+@media only screen and (max-width: 768px) {
+    .input-grid {
+    grid-template-columns: 1fr; 
+    }
+}
+
+
 .output-grid {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: 1fr 1fr; 
     display: grid;
-    padding: 10px!important;
+    align-items: start!important;
 
 
 }
 
+@media only screen and (max-width: 768px) {
+    .output-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.example_pictures, .ingredients {
+    padding: 10px!important;
+
+}
+
+
+.ingredients {
+        margin-left: 50px!important;
+
+}
+
+@media only screen and (max-width: 768px) {
+    .ingredients {
+        margin-left: 0px!important;
+    }
+}
+
+
 .ingredient-grid {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, auto); 
     display: grid;
     padding: 10px!important;
     width: fit-content;
-;
 }
 
 .field {

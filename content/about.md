@@ -6,19 +6,20 @@ layout: "page"
 ## Sebastian Waelchli
 **Mechanical Engineer | Tech Enthusiast | Hobby Baker**
 
+Hello there!
 
-I am a Houston-based engineer with a background in Mechanical Engineering. I work in Project Management for rotating equipment that is used several industries ranging from traditional oil & gas applications to renewable technologies such as heatpumps.
+I am Sebastian, a Houston-based engineer with a background in Mechanical Engineering. In my professional life I work in Project Management for rotating equipment that is used several industries ranging from traditional oil & gas applications to renewable technologies such as heatpumps.
+Engineering has always been a pation of mine and I am thankfull to have the oportunity to work with a wide range of engineering professionals from all arround the world.
 
 ### Technical Interests
-Beyond my professional world of mechanical engineering, I am a dedicated **homelabber**. This website is a result of this hobby. Everything you see here is hosted on my homeserver.
+Beyond my professional relation to engineering, I am a dedicated **homelabber**. This website is a result of this hobby. Everything you see here is hosted on my homeserver.
 
 * **Virtualization:** Managing services via Proxmox and Docker.
 * **Self-Hosting:** Running local instances of serveral applicaitons that help me in my daily life.
 * **Development:** Building custom tools and scripts, often shared on my GitHub.
 
-### Projects & Philosophy
+### This Website
 This site serves as a central hub for my technical experiments. Whether it's a deep dive into engineering formulas or a guide on configuring a new Docker container. I also like to mix in some of my other interest such as baking.
-
 
 
 ### Beyond the Screen

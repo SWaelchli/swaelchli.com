@@ -167,7 +167,7 @@ function initializeChart() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Oil Volume Trends'
+                    text: 'Oil Tank Level Trends'
                 }
             }
         }

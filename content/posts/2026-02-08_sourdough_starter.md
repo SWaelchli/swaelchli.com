@@ -1,6 +1,6 @@
 ---
 title: "How to make your own Sourdough Starter"
-date: 2026-02-01T16:22:28Z
+date: 2026-02-06
 draft: true
 description: "A recipy to make your own sourdough starter"
 tags: ["Baking"]

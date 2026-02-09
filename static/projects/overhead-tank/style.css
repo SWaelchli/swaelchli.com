@@ -38,6 +38,7 @@ h3 {
     font-size: 1rem!important;
     display: grid;
     border-top: 2px solid #9e6851!important;
+    align-items: end;
 }
 
 .slider-grid {
@@ -52,16 +53,12 @@ h3 {
 .field label {
     display: block;
     font-weight: 600;
-    margin-bottom: 2px;
+    margin: 5px!important;
+    line-height: 1;
+
 }
 
-/* The "Pop": Stronger border and technical font */
-.field input[type="number"] {
-    width: 100%;
-    padding: 4px 4px!important;;
-    font-weight: 700;
-    transition: all 0.2s ease;
-}
+
 
 /* Focus state for tactical feedback */
 
@@ -70,6 +67,35 @@ h3 {
     accent-color: #9e6851!important;
     cursor: pointer;
 }
+
+
+/*  INPUT FILEDS*/
+
+
+/* Base Style and Light Mode */
+input {
+    /* Base Style */
+    width: 90%;
+    text-align: center;
+    border: 1px solid #ccc!important;
+    border-radius: 5px!important;
+
+
+    /* Light Mode */
+    background-color: rgb(255, 255, 255) !important;
+}
+
+/* Dark Mode Override */
+
+html.dark input {
+    /* Change background to dark grey */
+    background-color: #333333 !important;
+    
+    /* Change border to match dark theme */
+    border: 1px solid #555;
+}
+
+
 
 /* 3. BUTTONS - TACTILE THEME */
 .button-row {
@@ -126,17 +152,19 @@ canvas {
     display: flex;
     justify-content: space-between;
     padding: 4px 0; 
-    border-bottom: 1px solid #f1f2f6;
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 0;
 
 }
 
 .readout-grid span span {
     color: #d63031;
-    font-weight: bold;
-    font-family: 'Courier New', monospace;
-    font-size: 1rem;
+    font-weight: bold!important;
+
 }
 
-.timer { color: #0984e3 !important; }
+.timer { 
+    color: #0984e3 !important; 
+      
+
+}

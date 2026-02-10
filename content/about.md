@@ -4,29 +4,32 @@ layout: "page"
 ---
 
 ## Sebastian Waelchli
-**Mechanical Engineer | Tech Enthusiast | Hobby Baker**
+
+**Mechanical Engineer | Tech Enthusiast | Baker**
 
 Hello there! :wave:
 
 I am Sebastian, a Houston-based engineer with a background in Mechanical Engineering. In my professional life, I work in Project Management for rotating equipment used in industries ranging from traditional oil & gas to renewable technologies like industrial heat pumps. Engineering has always been more than just a job for me; I love the learning process involved in every new project and feel lucky to work with talented people from all over the world.
 
 ### Technical Interests
+
 When I log off from the day job, the engineering doesn't always stop. This website is a direct product of my recent homelab obsession. If you’re seeing this, it means I’ve managed to make my home server behave itself (for now).
 
 I plan on sharing more posts soon that describe my current setup and offer tips for anyone else going down the self-hosting rabbit hole.
 
 ### Why This Site Exists
+
 This is my digital playground. You’ll find everything here from deep dives into engineering formulas to guides on how to bake a better sourdough loaf. I plan to use this space for whatever I’m currently tinkering with.
 
-
 ### Beyond the Screen
+
 When I’m not optimizing a server (or frantically fixing a config file I broke), you can usually find me:
 
 {{< figure-wrap
-src="/pictures/about_picture_s.jpg" 
+src="/pictures/about_picture_s.jpg"
 align="right"
-width="200px" 
-alt="Sebastian Waelchli with sourdough bread" 
+width="200px"
+alt="Sebastian Waelchli with sourdough bread"
 caption="That's me with some sourdough bread!"
 >}}
 

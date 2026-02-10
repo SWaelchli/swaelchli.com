@@ -17,5 +17,6 @@ This project is about...
 
 {{< 3d-model src="/models/Knife_Holder_Flower_Pot.glb" alt="3D view of the engine part" >}}
 
-### How it works
-Describe how it works
+## How it works
+
+Describe how it works.

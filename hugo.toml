@@ -12,7 +12,7 @@ enableEmoji = true
 
   avatar = 'https://swaelchli.com/pictures/portrait.jpg'
   name = 'Sebastian Waelchli'
-  bio = 'Engineer | Tech Enthusiast | Problem Solver'
+  bio = 'Mechanical Engineer | Tech Enthusiast | Baker'
 
   mainSections = ["posts", "projects"]
   math = true

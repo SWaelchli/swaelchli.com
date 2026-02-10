@@ -11,27 +11,22 @@ tags: ["Coding", "Baking"]
 
 This is a small tool that helps me calculate the ingredients for my sourdough bread based on the starter that I have at hand and the desired hydration of the dough.
 
-
-<!-- Tool / Project here -->
-
-
 ***
 {{< hydration_calc >}}
 ***
 
-### How it works
+## How it works
 
 The tool works on a short JavaScript code that is doing simple arithmetic to calculate the ingredients.
 
 + The tool is assuming a desired salt content of 2%.
 + The tool is assuming a water loss of 15% during baking.
 
-
-
 You can access the code on this website's [GitHub repository](https://github.com/SWaelchli/swaelchli.com/tree/master/static/projects/hydration_calc)
 
-### Calculations:
-**Definitions**
+## Calculations
+
+### Definitions
 
 $$
 \begin{aligned}
@@ -51,8 +46,7 @@ $$
 \end{aligned}
 $$
 
-**Formulas**
-
+### Formulas
 
 $$
 \begin{aligned}
@@ -66,6 +60,6 @@ $$
 \\[1em]
 & m_{Flour} = \frac {m_{Dough}}  {1 + h + m_{NaCl}}  - \frac {m_S}  {1 + h_S}  
 \\[1em]
-&m_{Water} =  {m_{Dough}} - \frac {m_{Dough}} {1 + h} 
+&m_{Water} =  {m_{Dough}} - \frac {m_{Dough}} {1 + h}
 \end{aligned}
 $$

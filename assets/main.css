@@ -123,7 +123,6 @@ ol:not(#\#):not(#\#), ul:not(#\#):not(#\#), menu:not(#\#):not(#\#) {
 }
 img:not(#\#):not(#\#), svg:not(#\#):not(#\#), video:not(#\#):not(#\#), canvas:not(#\#):not(#\#), audio:not(#\#):not(#\#), iframe:not(#\#):not(#\#), embed:not(#\#):not(#\#), object:not(#\#):not(#\#) {
   display: block;
-  vertical-align: middle;
 }
 img:not(#\#):not(#\#), video:not(#\#):not(#\#) {
   max-width: 100%;
@@ -908,7 +907,7 @@ button:not(#\#):not(#\#), input:where([type="button"], [type="reset"], [type="su
   }
 }
 .p-3:not(#\#):not(#\#):not(#\#):not(#\#) {
-  padding: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 1);
 }
 .px-5:not(#\#):not(#\#):not(#\#):not(#\#) {
   padding-left: calc(var(--spacing) * 5);

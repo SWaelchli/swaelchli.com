@@ -7,18 +7,21 @@ description: "A formal introduction to my digital lab and personal website."
 tags: ["General", "Engineering", "Coding"]
 ---
 
-Welcome to my personal corner of the web! 
+Welcome to my personal corner of the web!
 
 After spending time playing around with some coding projects, I decided it was time to build a space that serves as both a portfolio and a digital playground. This site is hosted on my own **home server**, which is a project in itself.
 
-### Why this site exists
+## Why this site exists
+
 My goal here is twofold:
 
 1. **Programming & Engineering:** I use this site as motivation to keep sharpening my coding skills, particularly with **Python**. You can expect to see smaller engineering tools, automation scripts, and documentation of my homelab experiments.
-2. **Personal Interests:** Outside of the "binary" world, I’m a fan of **baking**—specifically the science and patience required for a perfect sourdough. I'll be sharing some of those projects here as well.
+2. **Personal Interests:** Outside of the "binary" world, I’m a fan of **baking** - specifically the science and patience required for a perfect sourdough. I'll be sharing some of those projects here as well.
 
-### What to expect
+## What to expect
+
 I plan to keep things simple. I’ll be posting:
+
 * **Engineering Tools:** Snippets and calculators for technical tasks.
 * **Baking Guides:** Recipies and guides related to baking.
 * **General "Playing Around":** Whatever technical curiosity catches my attention during the weekend.

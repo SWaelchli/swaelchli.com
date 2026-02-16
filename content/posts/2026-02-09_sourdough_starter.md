@@ -16,8 +16,8 @@ I'd like to share with you how you can make your own starter.
 {{< figure-wrap
 src="/pictures/2026-2-01_sourdough_starter/starter_in_jar.jpg"
 align="right"
-width="200px" 
-alt="Sourdough starter in jar" 
+width="200px"
+alt="Sourdough starter in jar"
 caption="Sourdough starter in jar, 2 hours after feeding"
 >}}
 
@@ -42,9 +42,9 @@ Mix it and store it in your container.
 ## Day 3
 
 Take 30 g of the starter from the previous day and mix it with 30 g of water and flour.
-The remaining starter can be discarded. 
+The remaining starter can be discarded.
 
-We discard the starter away to avoid accumulating more and more starter, which in turn requires more an more flour to feed the starter.
+We discard the starter to avoid accumulating more and more starter, which in turn requires more and more flour to feed the starter.
 Either throw it away or keep the discard to make various things, such as pancakes or waffles. There are plenty of recipes out there. I recommend not let your discard go to waste!
 
 ## Day 4 to 10
@@ -56,7 +56,7 @@ Keep repeating the procedure from day 3.
 The general rule of thumb is that the starter is ready when it rises to twice its size.
 I marked my jar with a Sharpie after putting the fed starter into the container each day. This way, I was able to observe the growth of the starter compared to its starting point.
 
-A popular test is the "Floar Tests". Take a spoon your starter and put in in a bowl filled with water. The starter is ready when it floats on the water.
+A popular test is the "Float Test". Take a spoon of your starter and put it in a bowl filled with water. The starter is ready when it floats on the water.
 
 **Be aware of false rise.** A false rise typically appears around day 3. The starter can grow to 3 times its size and you might think it is ready. This happens when bacteria are getting very active and causing this rise.
 However, we do not want bacteria to produce the gas. We want yeast.

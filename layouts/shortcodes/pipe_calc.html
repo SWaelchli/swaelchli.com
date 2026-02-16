@@ -1,0 +1,86 @@
+
+ {{ $projectPath := "/projects/pipe_calc" }}
+ 
+     
+<main class="container">
+    <link rel="stylesheet" href="{{ $projectPath }}/style.css?v={{ now.Unix }}">
+   
+    <section class="drawing-controls">
+        <h3 id="pfd"> Process Flow Diagram (PFD)</h3>
+        
+        <div class="button-row">
+            <button id="drawPipeModeBtn" class="button-normal">Draw Pipe</button>
+            <button id="drawSymbolModeBtn" class="button-normal">Draw Symbols</button>
+            <button id="deleteSymbolModeBtn" class="button-red">Delete Symbol</button>
+            <button id="clearCanvasBtn" class="button-red">Clear All</button>
+        </div>
+
+        <div id="symbolControls" class="symbol-controls">
+            <label>
+                <input type="radio" name="symbolShape" value="line" checked> Line
+            </label>
+            <label>
+                <input type="radio" name="symbolShape" value="circle"> Circle
+            </label>
+            <label>
+                <input type="radio" name="symbolShape" value="triangle"> Triangle
+            </label>
+            <label>
+                <input type="radio" name="symbolShape" value="square"> Square
+            </label>
+            <label>
+                <input type="radio" name="symbolShape" value="rectangle"> Rectangle
+            </label>
+        </div>
+    </section>
+
+
+
+    <canvas id="drawingCanvas" width="800" height="400"></canvas>
+
+
+
+    <section class="pipe-data">
+        <h3>Pipe Sections Data</h3>
+
+        <p>Drag and drop table rows to reorder pipes.</p>
+
+        <div class="button-row">
+            <button id="calculateAllBtn" class= "button-normal">
+                Calculate All Velocities
+            </button>
+            <button id="saveBtn" class="button-normal">
+                Save Diagram
+            </button>
+            <button id="loadBtn" class="button-normal">
+                Load Diagram
+            </button>
+            <input type="file" id="fileInput" accept=".json"> <!-- Hidden file input -->
+        </div>
+
+        <div>
+            <table class="calculation-table">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>NPS</th>
+                        <th>Schedule</th>
+                        <th>Volume Flow</th>
+                        <th>Description</th>
+                        <th>Velocity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pipeSectionsTableBody">
+                    <!-- Dynamic rows will be added here based on drawing -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Global Error Message Display -->
+    <div id="globalErrorMessage" class="error-message hidden mt-4"></div>
+</main>
+
+
+<script src="pipe_calc.js"></script>

@@ -1,6 +1,7 @@
 ---
 title: "Sourdough Hydration Calculator"
 date: 2026-02-06
+lastmod: 2026-02-06
 draft: false
 description: "A little tool to calculate the ingredients weight to achieve a certain hydration."
 tags: ["Coding", "Baking"]
@@ -17,7 +18,7 @@ This is a small tool that helps me calculate the ingredients for my sourdough br
 
 ## How it works
 
-The tool works on a short JavaScript code that is doing simple arithmetic to calculate the ingredients.
+The tool uses a short JavaScript code that performs simple arithmetic to calculate the ingredients.
 
 + The tool is assuming a desired salt content of 2%.
 + The tool is assuming a water loss of 15% during baking.

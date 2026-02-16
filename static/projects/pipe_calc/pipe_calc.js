@@ -1,4 +1,4 @@
-// File: eng-tools/pipe-calc/pipe-calc.js
+// File: eng-tools/pipe_calc/pipe_calc.js
 
 
 const drawingCanvas = document.getElementById('drawingCanvas');

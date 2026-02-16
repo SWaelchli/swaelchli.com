@@ -1,11 +1,35 @@
+:root {
+    --primary-color: #333;
+    --primary-color-text: #fff;
+    --secondary-color: #f4f4f4;
+    --secondary-color-text: #333;
+    --danger-color: #dc3545;
+    --danger-color-text: #fff;
+    --light-gray: #f1f5f9;
+    --dark-gray: #475569;
+    --border-color: #e2e8f0;
+    --row-bg-color: #ffffff;
+    --row-shadow-color: rgba(0, 0, 0, 0.05);
+    --row-hover-shadow-color: rgba(0, 0, 0, 0.08);
+    --result-bg-color: #eef2ff;
+    --result-border-color: #c7d2fe;
+    --result-text-color: #4338ca;
+    --error-color: #ef4444;
+    --highlight-bg-color: #e0f2fe;
+    --highlight-shadow-color: rgba(0, 0, 0, 0.1);
+    --pipe-number-bg-color: #6366f1;
+    --dragging-border-color: #6366f1;
+    --drop-target-bg-color: #c7d2fe;
+    --canvas-bg-color: rgba(255, 255, 255, 0.74);
+    --symbol-controls-bg-color: rgba(255, 255, 255, 0.199);
+}
 
 /* First subtitle no margin, because of the separator in the .md-file */
-#pfd {margin-top: 0px!important;}
-
-
+#pfd {
+    margin-top: 0px;
+}
 
 /* 1. BUTTONS - CANVAS */
-
 .drawing-controls {
     width: 100%;
     height: fit-content;
@@ -20,87 +44,69 @@
     margin-top: 0.5rem;
 }
 
-.button-normal {
+.btn {
     flex: 1;
     padding: 8px;
-    background-color: rgba(255, 255, 255, 0.199)!important;
-    border: 1px solid!important;
-    box-shadow: #3333333a 5px 5px 5px!important;
-    border-radius: 10px!important;
-    font-weight: 700!important;
+    border: 1px solid;
+    box-shadow: #3333333a 5px 5px 5px;
+    border-radius: 10px;
+    font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
     transition: all 0.2s;
-    line-height: 1.5rem!important;
+    line-height: 1.5rem;
 }
 
-.button-red {
-    flex: 1;
-    padding: 8px;
-    background-color: rgba(221, 8, 8, 0.397)!important;
-    border: 1px solid!important;
-    box-shadow: #3333333a 5px 5px 5px!important;
-    border-radius: 10px!important;
-    font-weight: 700!important;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.2s;
-    line-height: 1.5rem!important;
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--secondary-color-text);
 }
 
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--danger-color-text);
+}
 
-#drawPipeModeBtn:hover { filter: brightness(1.1); }
-#drawSymbolModeBtn:hover { filter: brightness(1.1); }
-#deleteSymbolModeBtn:hover { filter: brightness(1.1); }
-#clearCanvasBtn:hover { filter: brightness(1.1); }
-
+.btn:hover {
+    filter: brightness(1.1);
+}
 
 /* Symbol controls styling */
-
-
-
 #symbolControls {
     flex: 1;
     padding: 8px;
-    background-color: rgba(255, 255, 255, 0.199)!important;
-    border: 1px solid!important;
-    box-shadow: #3333333a 5px 5px 5px!important;
-    border-radius: 10px!important;
+    background-color: var(--symbol-controls-bg-color);
+    border: 1px solid;
+    box-shadow: #3333333a 5px 5px 5px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-evenly;
+}
 
-    
-}
-#symbolControls label {
-    cursor: pointer;
-}
+#symbolControls label,
 #symbolControls input[type="radio"] {
     cursor: pointer;
 }
 
-
 /* 2. CANVAS TO DRAW PIPES */
-
-
 #drawingCanvas {
-    background: rgba(255, 255, 255, 0.74)!important;
+    background: var(--canvas-bg-color);
     border-radius: 10px;
-    justify-content: center!important;
-    touch-action: none; /* Disable default touch actions for drawing */
-    max-width: 100%; /* Make canvas responsive width */
-    height: 400px; /* Fixed height for visibility */
-    display: block; /* Ensure it takes up space */
-    cursor: crosshair; /* Indicate drawing mode */
-    margin-top: 20px!important;
+    justify-content: center;
+    touch-action: none;
+    /* Disable default touch actions for drawing */
+    max-width: 100%;
+    /* Make canvas responsive width */
+    height: 400px;
+    /* Fixed height for visibility */
+    display: block;
+    /* Ensure it takes up space */
+    cursor: crosshair;
+    /* Indicate drawing mode */
+    margin-top: 20px;
 }
 
-
 /* 3. PIPE DATA */
-
-
-
-/* Buttons are defined in 1. BUTTONS - CANVAS */
-
 .pipe-data {
     width: 100%;
     height: fit-content;
@@ -109,109 +115,129 @@
     gap: 1rem;
 }
 
-
-
-
-/* Blablabalablaba */
-
-
-
-
-
-
 .result-cell {
-    background-color: #eef2ff; /* Light blue background for results */
-    border: 1px solid #c7d2fe; /* Matching border */
-    border-radius: 0.5rem; /* Slightly less rounded for table cells */
-    padding: 0.5rem 1rem; /* Smaller padding for cells */
-    color: #4338ca; /* Darker blue text */
+    background-color: var(--result-bg-color);
+    /* Light blue background for results */
+    border: 1px solid var(--result-border-color);
+    /* Matching border */
+    border-radius: 0.5rem;
+    /* Slightly less rounded for table cells */
+    padding: 0.5rem 1rem;
+    /* Smaller padding for cells */
+    color: var(--result-text-color);
+    /* Darker blue text */
     font-weight: 600;
     text-align: center;
     font-size: 0.95rem;
-    min-width: 120px; /* Ensure result cell has minimum width */
+    min-width: 120px;
+    /* Ensure result cell has minimum width */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%; /* Fill the cell height */
+    height: 100%;
+    /* Fill the cell height */
 }
 
 .error-message {
-    color: #ef4444; /* Red for errors */
+    color: var(--error-color);
+    /* Red for errors */
     font-size: 0.9rem;
     margin-top: 0.5rem;
     text-align: center;
 }
 
-
-
 /* Table specific styles */
 .calculation-table {
     width: 100%;
-    border-collapse: separate; /* Allows for border-radius on cells */
-    border-spacing: 0 0.75rem; /* Space between rows */
+    border-collapse: separate;
+    /* Allows for border-radius on cells */
+    border-spacing: 0 0.75rem;
+    /* Space between rows */
     margin-top: 1.5rem;
+    display: block;
+    overflow-x: auto;
 }
 
-.calculation-table th, .calculation-table td {
+.calculation-table th,
+.calculation-table td {
     padding: 0.75rem;
     text-align: left;
     vertical-align: middle;
 }
 
 .calculation-table th {
-    background-color: #f1f5f9; /* Light header background */
+    background-color: var(--light-gray);
+    /* Light header background */
     font-weight: 700;
-    color: #475569; /* Darker grey for header text */
-    border-bottom: 2px solid #e2e8f0;
-    position: sticky; /* Sticky header for scrolling table */
+    color: var(--dark-gray);
+    /* Darker grey for header text */
+    border-bottom: 2px solid var(--border-color);
+    position: sticky;
+    /* Sticky header for scrolling table */
     top: 0;
-    z-index: 10; /* Ensure header stays on top */
+    z-index: 10;
+    /* Ensure header stays on top */
 }
 
 .calculation-table tbody tr {
-    background-color: #ffffff;
+    background-color: var(--row-bg-color);
     border-radius: 0.75rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Soft shadow for rows */
+    box-shadow: 0 2px 10px var(--row-shadow-color);
+    /* Soft shadow for rows */
     transition: box-shadow 0.2s ease;
 }
 
 .calculation-table tbody tr:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Enhanced shadow on row hover */
+    box-shadow: 0 4px 15px var(--row-hover-shadow-color);
+    /* Enhanced shadow on row hover */
 }
 
-.calculation-table td:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
-.calculation-table td:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+.calculation-table td:first-child {
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+
+.calculation-table td:last-child {
+    border-top-right-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+}
 
 .flex-row-inputs {
     display: flex;
-    gap: 0.5rem; /* Space between input and unit select */
+    gap: 0.5rem;
+    /* Space between input and unit select */
 }
 
-
 .remove-btn {
-    background-color: #ef4444; /* Red for remove button */
+    background-color: var(--error-color);
+    /* Red for remove button */
     color: white;
     padding: 0.5rem 0.75rem;
     font-size: 0.85rem;
     font-weight: 600;
     border-radius: 0.5rem;
     transition: background-color 0.2s ease;
-    box-shadow: none; /* No shadow for small buttons */
-    width: auto; /* Auto width for smaller button */
-    transform: translateY(0); /* Remove lift on hover for small button */
+    box-shadow: none;
+    /* No shadow for small buttons */
+    width: auto;
+    /* Auto width for smaller button */
+    transform: translateY(0);
+    /* Remove lift on hover for small button */
 }
+
 .remove-btn:hover {
-        background-color: #dc2626; /* Darker red on hover */
-        transform: translateY(0); /* Remove lift on hover for small button */
-        box-shadow: none;
+    background-color: #dc2626;
+    /* Darker red on hover */
+    transform: translateY(0);
+    /* Remove lift on hover for small button */
+    box-shadow: none;
 }
-
-
 
 /* Highlight drawn pipe when its table row is hovered */
 .pipe-section-row.highlighted {
-    background-color: #e0f2fe; /* Light blue background */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--highlight-bg-color);
+    /* Light blue background */
+    box-shadow: 0 4px 15px var(--highlight-shadow-color);
 }
 
 /* Style for the pipe number indicator in table */
@@ -222,7 +248,7 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: #6366f1;
+    background-color: var(--pipe-number-bg-color);
     color: white;
     font-size: 0.75rem;
     font-weight: bold;
@@ -233,14 +259,16 @@
 /* Drag-and-drop table row styling */
 .calculation-table tbody tr.dragging {
     opacity: 0.5;
-    border: 2px dashed #6366f1;
-}
-.calculation-table tbody tr.drop-target {
-    background-color: #c7d2fe; /* Light indigo for drop target */
+    border: 2px dashed var(--dragging-border-color);
 }
 
+.calculation-table tbody tr.drop-target {
+    background-color: var(--drop-target-bg-color);
+    /* Light indigo for drop target */
+}
 
 /* File input styling */
 #fileInput {
-    display: none; /* Hide the default file input */
+    display: none;
+    /* Hide the default file input */
 }

@@ -58,24 +58,23 @@
             <input type="file" id="fileInput" accept=".json"> <!-- Hidden file input -->
         </div>
 
-        <div>
-            <table class="calculation-table">
-                <thead>
-                    <tr>
-                        <th>Section</th>
-                        <th>NPS</th>
-                        <th>Schedule</th>
-                        <th>Volume Flow</th>
-                        <th>Description</th>
-                        <th>Velocity</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="pipeSectionsTableBody">
-                    <!-- Dynamic rows will be added here based on drawing -->
-                </tbody>
-            </table>
-        </div>
+        <table class="calculation-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>NPS</th>
+                    <th>Schedule</th>
+                    <th>Volume Flow</th>
+                    <th>Description</th>
+                    <th>Velocity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="pipeSectionsTableBody">
+                <!-- Dynamic rows will be added here based on drawing -->
+            </tbody>
+        </table>
+        
     </section>
 
     <!-- Global Error Message Display -->
@@ -83,4 +82,4 @@
 </main>
 
 
-<script src="pipe_calc.js"></script>
+<script src="{{ $projectPath }}/pipe_calc.js"></script>

@@ -1212,18 +1212,18 @@ function createTableRowForPipe(pipeObj) {
     const volumeFlowCell = document.createElement('td');
     volumeFlowCell.setAttribute('data-label', 'Volume Flow:');
     const volumeFlowGroup = document.createElement('div');
-    volumeFlowGroup.className = 'flex flex-row-inputs w-full';
+    volumeFlowGroup.className = 'flow-group';
 
     const volumeFlowInput = document.createElement('input');
     volumeFlowInput.type = 'number';
-    volumeFlowInput.className = 'flex-grow rounded-l-lg rounded-r-none text-sm volume-flow-input';
+    volumeFlowInput.className = 'flow-input';
     volumeFlowInput.placeholder = 'Flow Rate';
     volumeFlowInput.min = '0';
     volumeFlowInput.step = 'any';
     volumeFlowInput.value = pipeObj.volumeFlow; // Set saved volume flow
 
     const volumeFlowUnitSelect = document.createElement('select');
-    volumeFlowUnitSelect.className = 'rounded-r-lg rounded-l-none pl-2 pr-2 text-xs volume-flow-unit';
+    volumeFlowUnitSelect.className = 'flow-unit';
     const gpmOption = document.createElement('option');
     gpmOption.value = 'gpm';
     gpmOption.textContent = 'GPM';
@@ -1244,7 +1244,7 @@ function createTableRowForPipe(pipeObj) {
     descriptionCell.setAttribute('data-label', 'Description:');
     const descriptionInput = document.createElement('input');
     descriptionInput.type = 'text';
-    descriptionInput.className = 'block w-full rounded-lg text-sm description-input';
+    descriptionInput.className = 'description-input';
     descriptionInput.placeholder = 'e.g., Inlet Line';
     descriptionInput.value = pipeObj.description; // Set saved description
     descriptionCell.appendChild(descriptionInput);
@@ -1272,7 +1272,7 @@ function createTableRowForPipe(pipeObj) {
     // Actions Cell (Remove Button)
     const actionsCell = document.createElement('td');
     const removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-btn';
+    removeBtn.className = 'button-red';
     removeBtn.textContent = 'Remove';
     removeBtn.addEventListener('click', () => {
         removePipeAndRow(pipeObj.id); // Call combined removal function

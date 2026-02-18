@@ -1,7 +1,7 @@
 baseURL = 'https://swaelchli.com/'
 languageCode = 'en-us'
 title = 'swaelchli.com'
-theme = 'paper'
+theme = 'hugo-paper'
 enableEmoji = true
 
 

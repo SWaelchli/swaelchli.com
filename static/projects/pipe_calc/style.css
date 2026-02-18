@@ -45,6 +45,13 @@ html.dark button {
     background-color: #d63031!important;
 }
 
+.button-remove, html.dark .button-remove {
+    background-color: #d63031!important;
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px!important;
+}
+
 button:hover {
     filter: brightness(1.1);
 }
@@ -129,15 +136,14 @@ html.dark #symbolControls {
 
 /* Table specific styles */
 .calculation-table {
-    width: 100%;
-    border-collapse: separate;
-    /* Allows for border-radius on cells */
+    width: 100%!important;
+    table-layout: fixed!important; /* This forces the table to respect your widths */
+    border-collapse: separate!important;
     border-spacing: 0 0.75rem;
     /* Space between rows */
     border-top-left-radius: 10px!important;
     border-top-right-radius: 10px!important;
     margin-top: 1.5rem;
-    display:block;
     overflow-x: auto;
 }
 
@@ -152,6 +158,23 @@ html.dark #symbolControls {
     /* Sticky header for scrolling table */
     padding: 10px!important;
 }
+
+html.dark .calculation-table th {
+    background-color: #333333 !important;
+    border-bottom: 1px solid #555 !important;
+}
+
+
+/* Pipe Section Data - Row Width */
+
+/* With has to equal 680px */
+.calculation-table thead th:nth-child(1) { width: 35px; }  /* # */
+.calculation-table thead th:nth-child(2) { width: 80px; } /* NPS */
+.calculation-table thead th:nth-child(3) { width: 100px; } /* Schedule */
+.calculation-table thead th:nth-child(4) { width: 200px; } /* Flow */
+.calculation-table thead th:nth-child(5) { width: 120px; }  /* Description (Flexible) */
+.calculation-table thead th:nth-child(6) { width: 120px; } /* Velocity */
+.calculation-table thead th:nth-child(7) { width: 50px; } /* Del. */
 
 
 
@@ -169,6 +192,7 @@ html.dark #symbolControls {
     font-weight: bold;
 }
 
+
 /* Drag-and-drop table row styling */
 .calculation-table tbody tr.dragging {
     opacity: 0.5;
@@ -184,4 +208,23 @@ html.dark #symbolControls {
 #fileInput {
     display: none;
     /* Hide the default file input */
+}
+
+
+
+.flow-group {
+    display: flex;
+    gap: 4px;
+    width: 100%;
+    overflow: hidden; /* Prevents internal elements from pushing the width */
+}
+
+.flow-input {
+    flex: 2; /* Gives more space to the number */
+    min-width: 0; /* Critical for flexbox items to shrink */
+}
+
+.flow-unit {
+    flex: 1;
+    min-width: 0;
 }

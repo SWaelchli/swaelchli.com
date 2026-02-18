@@ -1269,17 +1269,17 @@ function createTableRowForPipe(pipeObj) {
     row.appendChild(velocityResultCell);
 
 
-    // Actions Cell (Remove Button)
-    const actionsCell = document.createElement('td');
+    // Del. Cell (Remove Button)
+    const delCell = document.createElement('td');
     const removeBtn = document.createElement('button');
-    removeBtn.className = 'button-red';
-    removeBtn.textContent = 'Remove';
+    removeBtn.className = 'button-remove';
+    removeBtn.textContent = 'X';
     removeBtn.addEventListener('click', () => {
         removePipeAndRow(pipeObj.id); // Call combined removal function
         clearGlobalMessage(); // Clear any global error after row removal
     });
-    actionsCell.appendChild(removeBtn);
-    row.appendChild(actionsCell);
+    delCell.appendChild(removeBtn);
+    row.appendChild(delCell);
 
     // Append row to table body
     pipeSectionsTableBody.appendChild(row);
@@ -1374,8 +1374,8 @@ function rebuildTableAndRenumber() {
 function calculateVelocityForRow(row) {
     const npsSelect = row.querySelector('.pipe-nps');
     const scheduleSelect = row.querySelector('.pipe-schedule');
-    const volumeFlowInput = row.querySelector('.volume-flow-input');
-    const volumeFlowUnitSelect = row.querySelector('.volume-flow-unit');
+    const volumeFlowInput = row.querySelector('.flow-input'); 
+    const volumeFlowUnitSelect = row.querySelector('.flow-unit');
     const descriptionInput = row.querySelector('.description-input'); // Get description input
     const velocityResultSpan = row.querySelector('.velocity-result');
     const pipeId = parseInt(row.dataset.pipeId);

@@ -43,8 +43,23 @@
     <section class="pipe-data">
         <h3>Pipe Sections Data</h3>
 
-        <p>Drag and drop table rows to reorder pipes.</p>
-
+        <table class="calculation-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>NPS</th>
+                    <th>Schedule</th>
+                    <th>Volume Flow</th>
+                    <th>Description</th>
+                    <th>Velocity</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody id="pipeSectionsTableBody">
+                <!-- Dynamic rows will be added here based on drawing -->
+            </tbody>
+        </table>
+        
         <div class="button-row">
             <button id="calculateAllBtn" class= "button-normal">
                 Calculate All Velocities
@@ -58,24 +73,7 @@
             <input type="file" id="fileInput" accept=".json"> <!-- Hidden file input -->
         </div>
 
-        <div>
-            <table class="calculation-table">
-                <thead>
-                    <tr>
-                        <th>Section</th>
-                        <th>NPS</th>
-                        <th>Schedule</th>
-                        <th>Volume Flow</th>
-                        <th>Description</th>
-                        <th>Velocity</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="pipeSectionsTableBody">
-                    <!-- Dynamic rows will be added here based on drawing -->
-                </tbody>
-            </table>
-        </div>
+
     </section>
 
     <!-- Global Error Message Display -->
@@ -83,4 +81,4 @@
 </main>
 
 
-<script src="pipe_calc.js"></script>
+<script src="{{ $projectPath }}/pipe_calc.js"></script>

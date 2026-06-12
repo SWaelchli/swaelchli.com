@@ -33,11 +33,32 @@ The website serves as a central hub for my professional background and personal 
 * `/themes`: Holds the styling and layout templates for the site.
 * `hugo.toml` (or `config.toml`): The primary configuration file for site-wide settings and navigation.
 
-## How to Run Locally
+## 🚀 How to Run the Website Locally
 
-To preview the site locally, ensure you have Hugo installed and run:
+Choose one of the two options below depending on how you want to access the preview from your web browser.
+
+### Option A: Accessing via IP Address (Simple & Direct)
+Use this option if you want to preview the site from any device on your local network (e.g., accessing an LXC container from your PC) without editing hosts files or setting up local DNS.
 
 ```bash
-hugo server -D
+hugo server -D --bind 0.0.0.0 --baseURL=http://192.168.1.103:1313/ --port 1313
 ```
-The site will be available at `http://localhost:1313`
+* **How to open:** Open your browser and navigate to: [http://192.168.1.103:1313](http://192.168.1.103:1313)
+* **Why it works:** Setting the `--baseURL` to the LXC IP prevents internal links from redirecting you to your public, live domain.
+
+---
+
+### Option B: Accessing via swaelchli.com (Behind Reverse Proxy / SSL)
+Use this option if you are running a local reverse proxy (like Nginx) that handles SSL, and you have mapped `swaelchli.com` locally to your development server's IP.
+
+```bash
+hugo server -D --baseURL=https://swaelchli.com/ --bind 0.0.0.0 --port 1313 --appendPort=false --liveReloadPort=443
+```
+* **How to open:** Open your browser and navigate to: [https://swaelchli.com](https://swaelchli.com)
+* **Why it works:** `--liveReloadPort=443` routes the WebSocket live-reload connection safely through your proxy.
+
+---
+
+## 📚 Theme Reference
+This site uses the **hugo-paper** theme.
+* Documentation: [https://github.com/nanxiaobei/hugo-paper](https://github.com/nanxiaobei/hugo-paper)

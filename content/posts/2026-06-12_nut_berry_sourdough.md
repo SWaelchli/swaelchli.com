@@ -2,7 +2,7 @@
 title: "Baking a Nut & Berry Sourdough Bread"
 date: 2026-06-12
 lastmod: 2026-06-12
-draft: true
+draft: false
 description: "A recipe for a delicious, rustic sourdough bread with walnuts, cranberries, and raisins at 72% hydration."
 tags: ["Baking", "Sourdough", "Recipes"]
 ---

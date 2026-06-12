@@ -1,13 +1,29 @@
-<figure style="float: {{ .Get "align" | default "left" }}; 
-               margin: 0 {{ if eq (.Get "align") "right" }}0{{ else }}20px{{ end }} 10px {{ if eq (.Get "align") "right" }}20px{{ else }}0{{ end }}; 
-               width: {{ .Get "width" | default "300px" }}; 
+{{- $align := .Get "align" | default "left" -}}
+{{- $width := .Get "width" | default "300px" -}}
+
+{{- if eq $align "center" -}}
+<figure style="margin: 2rem auto; width: {{ $width }}; max-width: 100%; text-align: center; clear: both;">
+    <img src="{{ .Get "src" | relURL }}" 
+         alt="{{ .Get "alt" }}" 
+         style="width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+    {{- with .Get "caption" -}}
+         <figcaption style="text-align: center; margin-top: 8px; font-size: 0.9rem; opacity: 0.7;">
+             {{- . | markdownify -}}
+         </figcaption>
+    {{- end -}}
+</figure>
+{{- else -}}
+<figure style="float: {{ $align }}; 
+               margin: 0 {{ if eq $align "right" }}0{{ else }}20px{{ end }} 10px {{ if eq $align "right" }}20px{{ else }}0{{ end }}; 
+               width: {{ $width }}; 
                max-width: 100%;">
     <img src="{{ .Get "src" | relURL }}" 
          alt="{{ .Get "alt" }}" 
          style="width: 100%; height: auto; border-radius: 8px; display: block;">
-    {{ with .Get "caption" }}
-        <figcaption style="text-align: center; margin-top: 8px;">
-            {{ . | markdownify }}
+    {{- with .Get "caption" -}}
+        <figcaption style="text-align: center; margin-top: 8px; font-size: 0.9rem; opacity: 0.7;">
+            {{- . | markdownify -}}
         </figcaption>
-    {{ end }}
+    {{- end -}}
 </figure>
+{{- end -}}

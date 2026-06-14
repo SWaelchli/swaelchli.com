@@ -52,6 +52,14 @@ caption="A freshly baked, golden brown loaf of nut & berry sourdough."
 * Add the **bread flour** and **salt**.
 * Mix with your hands until no dry flour remains. Cover the bowl and let it rest for **30 to 45 minutes** to kickstart gluten development.
 
+{{< figure-wrap
+src="/pictures/2026-06-12_nut_berry_sourdough/Nut_Berry_Bread_Sliced.jpg"
+align="center"
+width="600px"
+alt="Sliced Nut and Berry Sourdough Bread"
+caption="The sliced crumb showing evenly distributed walnuts, raisins, and cranberries."
+>}}
+
 ---
 
 ### 3. Stretch and Fold (Integrating the Inclusions)
@@ -69,10 +77,4 @@ Instead of kneading, we build dough strength through a series of **4 stretch and
 * **Baking:** Preheat your oven to $460^\circ\text{F}$ ($240^\circ\text{C}$). Score the cold dough, transfer it to the hot oven, and bake for 45 minutes. In order to get a better crust, put an oven-resistant bowl with water (about 1 cup) into the oven together with the bread to create steam.
 * **Resting:** Once baked, let the bread cool completely on a wire rack for at least 2 hours before slicing. If sliced while still hot, the bread will lose a lot of moisture and won't stay fresh for as long.
 
-{{< figure-wrap
-src="/pictures/2026-06-12_nut_berry_sourdough/Nut_Berry_Bread_Sliced.jpg"
-align="center"
-width="600px"
-alt="Sliced Nut and Berry Sourdough Bread"
-caption="The sliced crumb showing evenly distributed walnuts, raisins, and cranberries."
->}}
+
